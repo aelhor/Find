@@ -14,7 +14,7 @@ const User = (props)=> {
 
     useEffect(()=> { 
         // get the user's info 
-        axios.get('http://localhost:8000/users/' + userId)
+        axios.get('https://chiedimi.herokuapp.com/users/' + userId)
         .then(res=> {
             console.log('user  :', res.data.user);
             setUser(res.data.user)
@@ -32,7 +32,7 @@ const User = (props)=> {
         })
 // -------------------------------------------------------------
         // get all usre's questions
-        axios.get('http://localhost:8000/questions/' + userId)
+        axios.get('https://chiedimi.herokuapp.com/questions/' + userId)
         .then(res=> { 
             // // console.log('fetching questions Response : ', res);
             setQuestions(res.data)
@@ -48,7 +48,7 @@ const User = (props)=> {
 
         axios({
             method: 'Post',
-            url: 'http://localhost:8000/questions/ask/' + userId,
+            url: 'https://chiedimi.herokuapp.com/questions/ask/' + userId,
             data: {
               body : quesBody
             }, 
@@ -73,7 +73,7 @@ const User = (props)=> {
         ! active_is_follower ? 
             axios({
                 method: 'Post',
-                url: 'http://localhost:8000/users/follow/' + activeUserId,
+                url: 'https://chiedimi.herokuapp.com/users/follow/' + activeUserId,
                 data: {
                     targetId : userId ,// target User Id
                     targetUserName : user.userName,
@@ -91,7 +91,7 @@ const User = (props)=> {
             // unFollow
             axios({
                 method: 'Post',
-                url: 'http://localhost:8000/users/unfollow/' + activeUserId,
+                url: 'https://chiedimi.herokuapp.com/users/unfollow/' + activeUserId,
                 data: {
                     targetId : userId ,// target User Id
                     targetUserName : user.userName,

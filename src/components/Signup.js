@@ -13,7 +13,7 @@ const Signup = (props) => {
         try {  ///        Test This 
             const res = await axios({
                 method : "POST",
-                url : 'http://localhost:8000/signup', 
+                url : 'https://chiedimi.herokuapp.com/signup', 
                 data : {
                     email : email , 
                     password : password,
@@ -28,7 +28,7 @@ const Signup = (props) => {
         } catch (error) {
             console.log(error)
         }
-        // axios.post('http://localhost:8000/signup', {
+        // axios.post('https://chiedimi.herokuapp.com/signup', {
         //         email : email , 
         //         password : password,
         //         userName : userName

@@ -4,7 +4,7 @@ import { userContext } from '../context'
 
 const getAllQuestion = async(activeUserId,setQuestions)=> { 
   try {
-    const res = await axios.get('http://localhost:8000/questions/' + activeUserId)  
+    const res = await axios.get('https://chiedimi.herokuapp.com/questions/' + activeUserId)  
     console.log('fetching questions Response : ', res)
     setQuestions(res.data)
   } 
@@ -32,7 +32,7 @@ const HomePage = (props) => {
         try {
           const res = await axios({
             method: 'Patch',
-            url: 'http://localhost:8000/questions/answer/' + quesId,
+            url: 'https://chiedimi.herokuapp.com/questions/answer/' + quesId,
             data: {
               answer : answer
             }, 

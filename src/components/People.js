@@ -10,7 +10,7 @@ const People = (props)=> {
         // get all the users 
         const getAllUser = async () => {
             try {
-                let res = await axios.get('http://localhost:8000/users')
+                let res = await axios.get('https://chiedimi.herokuapp.com/users')
                 console.log(res.data)
                 setUsers(res.data.users)
 
@@ -20,7 +20,7 @@ const People = (props)=> {
             }
         }
         getAllUser()
-        // axios.get('http://localhost:8000/users')
+        // axios.get('https://chiedimi.herokuapp.com/users')
         // .then(res=> {
         //     console.log(res.data);
         //     setUsers(res.data.users)

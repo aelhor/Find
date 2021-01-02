@@ -10,7 +10,7 @@ const Following = (props)=> {
 
 
     useEffect(()=> { 
-        axios.get('http://localhost:8000/users/'+activeUserId)
+        axios.get('https://chiedimi.herokuapp.com/users/'+activeUserId)
         .then(res=> {
             // // console.log('Following : ',res.data.user.following); // array of objs
             setFollowing(res.data.user.following)
