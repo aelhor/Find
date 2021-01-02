@@ -20,11 +20,11 @@ function App() {
       <userContext.Provider value={{logedIn, setLogedIn, activeUserId, setactiveUserId}}>
         <Nav />
         <Router>
-          <Route path = 'https://laughing-darwin-66632b.netlify.app/signup'component={Signup} />
-          <Route path = 'https://laughing-darwin-66632b.netlify.app/login'component={Login} />
-          <Route path = 'https://laughing-darwin-66632b.netlify.app/people' component={People} />
-          <Route path = 'https://laughing-darwin-66632b.netlify.app/user/:id' component ={User}/>
-          <Route path = 'https://laughing-darwin-66632b.netlify.app/following/' component ={Following}/>
+          <Route path = '/signup'component={Signup} />
+          <Route path = '/login'component={Login} />
+          <Route path = '/people' component={People} />
+          <Route path = 'user/:id' component ={User}/>
+          <Route path = '/following/' component ={Following}/>
           <Route path = '/'component={HomePage } exact/>
         </Router>
       </userContext.Provider>
