@@ -23,7 +23,7 @@ function App() {
           <Route path = '/signup'component={Signup} />
           <Route path = '/login'component={Login} />
           <Route path = '/people' component={People} />
-          <Route path = 'user/:id' component ={User}/>
+          <Route path = '/user/:id' component ={User}/>
           <Route path = '/following/' component ={Following}/>
           <Route path = '/'component={HomePage } exact/>
         </Router>
