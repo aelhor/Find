@@ -45,6 +45,7 @@ const HomePage = (props) => {
         }
     } 
     return <div>
+      <h1>GOSSIP</h1>
       <img className='homepage-img' alt = 'homepage' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSoA7sqDWhOZp9DnsDsF7-K1CJQftvEOd8gw&usqp=CAU'/>
        {logedIn ?
        <div>
