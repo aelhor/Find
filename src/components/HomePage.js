@@ -2,6 +2,11 @@ import React, { useEffect, useState, useContext } from 'react'
 import axios from 'axios'
 import { userContext } from '../context'
 
+let now = new Date()
+let nowDay = now.getDay()
+let nowHour = now.getHours() 
+let nowMonth = now.getMonth()
+let nowYear = now.getFullYear()
 const getAllQuestion = async(activeUserId,setQuestions)=> { 
   try {
     const res = await axios.get('https://chiedimi.herokuapp.com/questions/' + activeUserId)  
@@ -44,7 +49,7 @@ const HomePage = (props) => {
           console.log(error);
         }
     } 
-    return <div>
+    return <div className='homepage-container'>
       <h1>GOSSIP -_-</h1>
       <img className='homepage-img' alt = 'homepage' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSoA7sqDWhOZp9DnsDsF7-K1CJQftvEOd8gw&usqp=CAU'/>
        {logedIn ?
@@ -55,25 +60,35 @@ const HomePage = (props) => {
            questions.map(ques=> {
              return(
                <div key={ ques._id}>
+                 
                   {
                     ques.answer ? 
                     <div className='question'>
+                      <small className ='ques-time'>{
+                         new Date(ques.createdAt).toUTCString().slice(4, 22)
+                      } </small><br/>
+                      {/* <small>updated at : {
+                           new Date(ques.updatedAt).toUTCString().slice(4, 22)
+                      } </small><br/> */}
+
                       <div className='question-body'>{ques.body}</div>
                       <div className='question-answer'>{ques.answer} </div>
                     </div> : 
                     
                     <div className='question'>
+                       <small className ='ques-time'>{
+                          new Date(ques.createdAt).toUTCString().slice(4, 22) }</small><br/>
                       <div className='question-body'>{ques.body}</div>
+                      
+                      <form onSubmit ={(e)=> answerQuestion(ques._id, e)} >
                       <input 
                         type='text' 
-                        placeholder='Enter an answer' 
+                        placeholder='Enter your answer' 
                         name={ques._id}
                         onChange ={e=>{
                           setAnswer(e.target.value) 
                         }}/>
-
-                        <form onSubmit ={(e)=> answerQuestion(ques._id, e)} >
-                          <button >Answer</button>
+                          <button title='Answer' className='answer-btn'><i class="material-icons">send</i></button>
                         </form>
                     </div>
                   }

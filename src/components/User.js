@@ -22,6 +22,7 @@ const User = (props)=> {
             for(let i = 0 ; i < res.data.user.followers.length ; i++){
                 if(activeUserId === res.data.user.followers[i].userId ){
                     set_Active_is_follower(true)
+                    document.querySelector('.follow-btn').classList.add('true-follow')
                     console.log('active is a follower')
                     break
                 }
@@ -30,7 +31,7 @@ const User = (props)=> {
         .catch(error=> { 
             // console.log(error);
         })
-// -------------------------------------------------------------
+
         // get all usre's questions
         axios.get('https://chiedimi.herokuapp.com/questions/' + userId)
         .then(res=> { 
@@ -45,7 +46,6 @@ const User = (props)=> {
 
     const askQuestion =(userId, e)=> { 
         e.preventDefault()
-
         axios({
             method: 'Post',
             url: 'https://chiedimi.herokuapp.com/questions/ask/' + userId,
@@ -110,7 +110,7 @@ const User = (props)=> {
     return<div>
        <h1> {user.userName}  </h1>
        {console.log('Active_is_followers', active_is_follower)}
-       <button onClick={()=>followOrunFollow()} className = 'follow-btn'>
+       <button onClick={()=>followOrunFollow()} className ={active_is_follower ? 'true-follow':'follow-btn'}>
            { active_is_follower ? 'UNFOLLOW': 'FOLLOW'}
         </button> 
        <br></br>
@@ -132,6 +132,8 @@ const User = (props)=> {
                         return(
                             ques.answer ? 
                             <div className='question' key = {ques._id}>
+                                <small className ='ques-time'>{
+                                  new Date(ques.createdAt).toUTCString().slice(4, 22)}</small><br/>
                                 <div  className='question-body'>{ques.body}</div>
                                  <div className='question-answer'> {ques.answer}</div>
                             </div>:null

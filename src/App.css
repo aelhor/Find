@@ -15,6 +15,13 @@ body{
 }
 
 /* common */
+.gossip{
+  color: #FFF;
+  float: left;
+}
+.gossip:hover{
+  text-decoration: none
+}
 button{
   padding: 0.3rem 1.3rem;
   background: #FFEB3B;
@@ -27,17 +34,17 @@ button{
 input[type=text]{
   padding: 0.3rem 1rem ;
   /* font-size: 0.8rem; */
-  margin-bottom: .5rem;
+  margin: .5rem;
 }
 input[type=email]{
   padding: 0.3rem 1rem ;
   /* font-size: 0.8rem; */
-  margin-bottom: .5rem;
+  margin: .5rem;
 }
 input[type=password]{
   padding: 0.3rem 1rem ;
   /* font-size: 0.8rem; */
-  margin-bottom: .5rem;
+  margin: .5rem;
 }
 a { 
   text-decoration: none;
@@ -46,11 +53,14 @@ a {
 a:hover{
   text-decoration: underline;
 }
+.ques-time{  
+  color: #9E9E9E;
+  float: left;
+}
 
 /* Nav Component */
 nav{
   margin: 0 0 1.2rem 0;
-
 }
 .logout-btn{
   background: none;
@@ -63,25 +73,49 @@ nav{
 .nav-link:active{
   border: 2px solid rgb(255, 248, 248);
 }
+.username-link{
+  color:#FFF
+}
 /* home page Component */
 .homepage-img { 
   height: 10rem;
   width: 100%;
 }
+.homepage-container input {
+
+   padding: 0.1rem .1rem ;
+  /* font-size: 0.8rem; */
+  /* margin: 0rem; */ 
+  font-size: 1rem;
+
+}
+.answer-btn{
+ padding: 0;
+ background: #020723;
+ color: #FFF;
+  cursor: pointer
+}
+.material-icons{
+  font-size: 1rem;
+}
 
 /* User Component  */
 .question { 
-      /* background: #fdfdfd; */
-      padding: 1rem;
-      box-shadow: 0px 0px 10px #4CAF50;
-      margin: 1rem 0;
-    }
+   /* background: #fdfdfd; */
+  padding: 1rem;
+  box-shadow: 0px 0px 10px #4CAF50;
+  margin: 1rem 0;
+}
 .follow-btn { 
   background: #F44336;
   color: #fff;
+  border: none;
+}
+.true-follow{
+  background: none;
+  color: #fff;
   margin-bottom: .6rem;
-  /* box-shadow: 2px 2px 0px 0px #8a8a8a; */
-
+  box-shadow: 2px 2px 0px 0px #8a8a8a;
 }
 .question-body { 
   font-size: 1.2rem;
