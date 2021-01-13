@@ -7,7 +7,7 @@
 }
 
 body{
-  background-color: #171718;
+  background-color: #000000;
 }
 
 /* common */
@@ -75,18 +75,23 @@ nav{
   width: 100%;
 }
 .homepage-container input {
-
    padding: 0.1rem .1rem ;
   /* font-size: 0.8rem; */
   /* margin: 0rem; */ 
   font-size: 1rem;
-
 }
 .answer-btn{
  padding: 0;
  background: #020723;
  color: #FFF;
-  cursor: pointer
+cursor: pointer
+}
+.delete-btn{
+  padding: 0;
+  background: none;
+  color: #7d7d7d;
+  cursor: pointer;
+  float :right
 }
 .material-icons{
   font-size: 1rem;

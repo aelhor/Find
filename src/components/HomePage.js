@@ -10,7 +10,7 @@ let nowYear = now.getFullYear()
 const getAllQuestion = async(activeUserId,setQuestions)=> { 
   try {
     const res = await axios.get('https://chiedimi.herokuapp.com/questions/' + activeUserId)  
-    console.log('fetching questions Response : ', res)
+    // console.log('fetching questions Response : ', res)
     setQuestions(res.data)
   } 
   catch (error) {
@@ -49,6 +49,17 @@ const HomePage = (props) => {
           console.log(error);
         }
     } 
+    const deleteQuestion = async(quesId)=>{
+      try {
+        const res = await axios.delete('https://chiedimi.herokuapp.com/questions/delete/' + quesId)  
+        console.log('question deleted : ', res)
+        getAllQuestion(activeUserId,setQuestions)
+      } 
+      catch (error) {
+        console.log('delete questions Error : ',  error);
+      }
+    }
+
     return <div className='homepage-container'>
       <h1>GOSSIP -_-</h1>
       <img className='homepage-img' alt = 'homepage' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSoA7sqDWhOZp9DnsDsF7-K1CJQftvEOd8gw&usqp=CAU'/>
@@ -60,24 +71,24 @@ const HomePage = (props) => {
            questions.map(ques=> {
              return(
                <div key={ ques._id}>
-                 
                   {
                     ques.answer ? 
                     <div className='question'>
                       <small className ='ques-time'>{
                          new Date(ques.createdAt).toUTCString().slice(4, 22)
-                      } </small><br/>
-                      {/* <small>updated at : {
-                           new Date(ques.updatedAt).toUTCString().slice(4, 22)
-                      } </small><br/> */}
-
+                      } </small>
+                      <button title ='Delete' onClick={()=>deleteQuestion(ques._id)} className='delete-btn'> <i className="material-icons">delete</i> </button>
+                      <br/><br/>
                       <div className='question-body'>{ques.body}</div>
                       <div className='question-answer'>{ques.answer} </div>
                     </div> : 
                     
                     <div className='question'>
                        <small className ='ques-time'>{
-                          new Date(ques.createdAt).toUTCString().slice(4, 22) }</small><br/>
+                          new Date(ques.createdAt).toUTCString().slice(4, 22) }
+                        </small>
+                        <button title ='Delete' onClick={()=>deleteQuestion(ques._id)} className='delete-btn'> <i className="material-icons">delete</i> </button>
+                        <br/>
                       <div className='question-body'>{ques.body}</div>
                       
                       <form onSubmit ={(e)=> answerQuestion(ques._id, e)} >
