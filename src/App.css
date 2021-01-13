@@ -1,17 +1,13 @@
 .App {
   text-align: center;
-  background-color: #020723;
+  background-color: #000000;
   color: #FFF;
   padding: 1rem ;
 
 }
 
 body{
-  background-color: #020723;
-}
-
-.green { 
-  background-color: chartreuse;
+  background-color: #171718;
 }
 
 /* common */
@@ -70,11 +66,8 @@ nav{
 .nav-link {
   padding : .5rem;
 }
-.nav-link:active{
-  border: 2px solid rgb(255, 248, 248);
-}
 .username-link{
-  color:#FFF
+  color: #FFF;
 }
 /* home page Component */
 .homepage-img { 
@@ -101,10 +94,11 @@ nav{
 
 /* User Component  */
 .question { 
-   /* background: #fdfdfd; */
-  padding: 1rem;
-  box-shadow: 0px 0px 10px #4CAF50;
-  margin: 1rem 0;
+   background: #111111;
+  padding: .5rem;
+  /* box-shadow: 0px 0px 10px #4CAF50; */
+  border: .01rem solid #585858;
+  margin: .5rem 0;
 }
 .follow-btn { 
   background: #F44336;

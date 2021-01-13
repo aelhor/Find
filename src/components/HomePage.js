@@ -88,7 +88,7 @@ const HomePage = (props) => {
                         onChange ={e=>{
                           setAnswer(e.target.value) 
                         }}/>
-                          <button title='Answer' className='answer-btn'><i class="material-icons">send</i></button>
+                          <button title='Answer' className='answer-btn'><i className="material-icons">send</i></button>
                         </form>
                     </div>
                   }

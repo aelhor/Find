@@ -8,12 +8,9 @@ const Nav = (props) => {
     return <div>
             { logedIn?
             <nav>
-                {/* <a className='gossip'>GOSSIP -_-</a> */}
-                <a href='/'  className = 'nav-link username-link' >{userName} </a>
+                <a href='/'  className = 'nav-link username-link' >{userName || 'Home'} </a>
                 <a href='/following' className = 'nav-link'  >Following</a>
-
                 <a href='/people' className = 'nav-link'  >People</a>
-
                 <a href='/login' className = 'nav-link'  >
                     <button className='logout-btn'
                         onClick={()=> localStorage.clear()}
