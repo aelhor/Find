@@ -1,13 +1,13 @@
 .App {
   text-align: center;
-  background-color: #000000;
+  background-color: #FFEB3B;
   color: #FFF;
   padding: 1rem ;
 
 }
 
 body{
-  background-color: #000000;
+  background-color: #f000;
 }
 
 /* common */
@@ -181,8 +181,3 @@ label {
   display: block;
 }
 
-body { 
-  background: local;
-}
-
-/* ##jjghj */
