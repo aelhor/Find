@@ -10,6 +10,7 @@ const User = (props)=> {
     const activeUserId = localStorage.getItem('userId')
     const activeUserName = localStorage.getItem('activeUserName')
 
+    let activeUserLikedQues = false
     const  [active_is_follower, set_Active_is_follower] = useState(false)
 
     useEffect(()=> { 
@@ -35,7 +36,7 @@ const User = (props)=> {
         // get all usre's questions
         axios.get('https://chiedimi.herokuapp.com/questions/' + userId)
         .then(res=> { 
-            // // console.log('fetching questions Response : ', res);
+            console.log('fetching questions Response : ', res);
             setQuestions(res.data)
         })
         .catch(error=> {
@@ -53,18 +54,14 @@ const User = (props)=> {
               body : quesBody
             }, 
           })
-          .then(res=> { 
-            // // console.log(res);
-            
+          .then(res=> {             
+            console.log(res)
+
             // clear the input 
             setQuesBody('')
-            // send a sucessful message 
-            document.querySelector('.ques-input').classList.add('green')
-
-            // window.location.reload()
           })
           .catch(error=> {
-            // console.log(error);
+            console.log(error);
           })
     }
 
@@ -106,6 +103,23 @@ const User = (props)=> {
                 // console.log(error);
             })
     }
+    const like = (quesId)=> { 
+        console.log(quesId)
+        try{
+            const res = axios({
+                method : 'PATCH', 
+                url: 'http://localhost:8000/questions/dislike/' + quesId,
+                data :{
+                    activeUserId : activeUserId,
+                    activeUserName : activeUserName
+                }
+            })
+            console.log(res)
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
    
     return<div>
        <h1> {user.userName}  </h1>
@@ -135,12 +149,21 @@ const User = (props)=> {
                                 <small className ='ques-time'>{
                                   new Date(ques.createdAt).toUTCString().slice(4, 22)}</small><br/>
                                 <div  className='question-body'>{ques.body}</div>
-                                 <div className='question-answer'> {ques.answer}</div>
+                                <div className='question-answer'> {ques.answer}</div>
+                                {
+                                    // ques.likes.userId = activeUserId ?
+                                    //     (
+                                    //         document.querySelector('.love-btn').classList.add('loved'),
+                                    //         activeUserLikedQues = !activeUserLikedQues
+                                    //     ):
+                                    // null
+                                }
+                                <button title ='Love' onClick={()=>like(ques._id,)} className='love-btn'> <i className="material-icons">favorite</i>{ques.likes} </button>
                             </div>:null
                         )
                     })
                 :
-                    <p>There are no questions for this user</p>
+                    <p>No questions yet...!</p>
             }
             
     </div>

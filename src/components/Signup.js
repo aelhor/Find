@@ -6,6 +6,8 @@ const Signup = (props) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [userName, setUserName] = useState('')
+    const [signupError, setSignupError] = useState(false)
+
     const {logedIn, setLogedIn} = useContext(userContext)
 
     const signUp = async(e)=>  {
@@ -26,7 +28,8 @@ const Signup = (props) => {
             setLogedIn(true)
             props.history.push('/') 
         } catch (error) {
-            console.log(error)
+            console.log(error, 'user name or email already exist')
+            setSignupError(true)
         }
         // axios.post('https://chiedimi.herokuapp.com/signup', {
         //         email : email , 
@@ -51,8 +54,8 @@ const Signup = (props) => {
     return(
         <div className='form-container'>  
             {
-                !logedIn ? 
-                <form onSubmit = {signUp}>
+            !logedIn ? 
+            <form onSubmit = {signUp}>
                 <label>E-mail : </label>
                 <input 
                     type = 'email' 
@@ -84,6 +87,7 @@ const Signup = (props) => {
                     onChange = {e=> setPassword(e.target.value)}
                     /><br/>
                 <button>Sign Up</button>
+                <small className='message'>{signupError ? 'username or email already exist..let\'s try anain' : null} </small>
             </form> :<h3>you are loged In </h3>
             }
             

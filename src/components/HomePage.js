@@ -2,21 +2,20 @@ import React, { useEffect, useState, useContext } from 'react'
 import axios from 'axios'
 import { userContext } from '../context'
 
+
 let now = new Date()
-let nowDay = now.getDay()
-let nowHour = now.getHours() 
-let nowMonth = now.getMonth()
-let nowYear = now.getFullYear()
 const getAllQuestion = async(activeUserId,setQuestions)=> { 
   try {
     const res = await axios.get('https://chiedimi.herokuapp.com/questions/' + activeUserId)  
     // console.log('fetching questions Response : ', res)
     setQuestions(res.data)
+    console.log(res.data)
   } 
   catch (error) {
     console.log('fetching questions Error : ',  error);
   }
 } 
+// ### likes branch from front end 
 const HomePage = (props) => { 
     const {logedIn} = useContext(userContext) 
     // const {activeUserId} = useContext(userContext)
@@ -59,9 +58,8 @@ const HomePage = (props) => {
         console.log('delete questions Error : ',  error);
       }
     }
-
     return <div className='homepage-container'>
-      <h1>GOSSIP -_-</h1>
+       <h1>GOSSIP -_-</h1>
       <img className='homepage-img' alt = 'homepage' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSoA7sqDWhOZp9DnsDsF7-K1CJQftvEOd8gw&usqp=CAU'/>
        {logedIn ?
        <div>
@@ -81,6 +79,8 @@ const HomePage = (props) => {
                       <br/><br/>
                       <div className='question-body'>{ques.body}</div>
                       <div className='question-answer'>{ques.answer} </div>
+                      <button title ='Love'  className='love-btn'> <i className="material-icons">favorite</i>{ques.likes} </button>
+
                     </div> : 
                     
                     <div className='question'>
@@ -108,7 +108,7 @@ const HomePage = (props) => {
            })
          }
        </div>: 
-       <h4>please log in first</h4>
+       <p>Please <a href='/login'>Login</a> First ...</p>
        }
     </div>
 }

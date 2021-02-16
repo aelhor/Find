@@ -110,6 +110,15 @@ cursor: pointer
   color: #fff;
   border: none;
 }
+.love-btn{
+  display: flex;
+  justify-content: space-between;
+}
+.loved {
+  color: #ff0000;
+}
+
+
 .true-follow{
   background: none;
   color: #fff;
@@ -171,3 +180,9 @@ li{
 label {
   display: block;
 }
+
+body { 
+  background: local;
+}
+
+/* ##jjghj */
