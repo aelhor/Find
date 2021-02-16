@@ -1,13 +1,13 @@
 .App {
   text-align: center;
-  background-color: #FFEB3B;
+  background-color: #f00;
   color: #FFF;
   padding: 1rem ;
 
 }
 
 body{
-  background-color: #f000;
+  background-color: #000;
 }
 
 /* common */
