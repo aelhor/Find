@@ -79,7 +79,7 @@ const HomePage = (props) => {
                       <br/><br/>
                       <div className='question-body'>{ques.body}</div>
                       <div className='question-answer'>{ques.answer} </div>
-                      <button title ='Love'  className='love-btn'> <i className="material-icons">favorite</i>{ques.likes} </button>
+                      <button title ='Love'  className='love-btn'> <i className="material-icons">favorite</i> x</button>
 
                     </div> : 
                     

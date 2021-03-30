@@ -150,15 +150,8 @@ const User = (props)=> {
                                   new Date(ques.createdAt).toUTCString().slice(4, 22)}</small><br/>
                                 <div  className='question-body'>{ques.body}</div>
                                 <div className='question-answer'> {ques.answer}</div>
-                                {
-                                    // ques.likes.userId = activeUserId ?
-                                    //     (
-                                    //         document.querySelector('.love-btn').classList.add('loved'),
-                                    //         activeUserLikedQues = !activeUserLikedQues
-                                    //     ):
-                                    // null
-                                }
-                                <button title ='Love' onClick={()=>like(ques._id,)} className='love-btn'> <i className="material-icons">favorite</i>{ques.likes} </button>
+                              
+                                <button title ='Love' onClick={()=>like(ques._id,)} className='love-btn'> <i className="material-icons">favorite</i>j</button>
                             </div>:null
                         )
                     })
