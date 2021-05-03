@@ -176,7 +176,6 @@ const HomePage = (props) => {
                       <form className='ques_form' onSubmit ={(e)=> answerQuestion(ques._id, e)} >
                       <textarea 
                         rows="4" 
-                        value = {answer}
                         placeholder='Enter your answer' 
                         name={ques._id}
                         onChange ={e=>{
