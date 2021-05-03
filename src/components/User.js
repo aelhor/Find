@@ -1,6 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+let loved = false
 
+const getAllQuestion = (userId, setQuestions)=> { 
+    axios.get('https://chiedimi.herokuapp.com/questions/' + userId)
+    .then(res=> { 
+        console.log('fetching questions Response : ', res);
+        setQuestions(res.data)
+    })
+    .catch(error=> {
+        // // console.log('fetching questions Error : ',  error);
+    })
+}
 const User = (props)=> { 
     const [user, setUser] = useState({})
     const [quesBody ,setQuesBody] = useState('')
@@ -9,8 +20,6 @@ const User = (props)=> {
     // const {activeUserId} = useContext(userContext)
     const activeUserId = localStorage.getItem('userId')
     const activeUserName = localStorage.getItem('activeUserName')
-
-    let activeUserLikedQues = false
     const  [active_is_follower, set_Active_is_follower] = useState(false)
 
     useEffect(()=> { 
@@ -34,14 +43,7 @@ const User = (props)=> {
         })
 
         // get all usre's questions
-        axios.get('https://chiedimi.herokuapp.com/questions/' + userId)
-        .then(res=> { 
-            console.log('fetching questions Response : ', res);
-            setQuestions(res.data)
-        })
-        .catch(error=> {
-            // // console.log('fetching questions Error : ',  error);
-        })
+        getAllQuestion(userId, setQuestions)
 
     }, [])
 
@@ -103,34 +105,60 @@ const User = (props)=> {
                 // console.log(error);
             })
     }
-    const like = (quesId)=> { 
-        console.log(quesId)
-        try{
-            const res = axios({
+   
+    const likeOrDislike =async (ques, i)=>{
+        let activeLikedQues = false
+        let loveBtnI = document.querySelector( `.love${i}`)
+        if (loveBtnI.classList.contains('loved')){
+            activeLikedQues = true
+        }
+        if (activeLikedQues ){
+            try{
+            const res = await axios({
                 method : 'PATCH', 
-                url: 'http://localhost:8000/questions/dislike/' + quesId,
+                url: 'http://localhost:8000/questions/dislike/'+ques._id,
                 data :{
                     activeUserId : activeUserId,
                     activeUserName : activeUserName
                 }
             })
-            console.log(res)
+            getAllQuestion(userId,setQuestions )
+            }
+            catch(error){
+                console.log(error)
+            }
         }
-        catch(error){
-            console.log(error)
+        else{
+            try{
+            const res = await axios({
+                method : 'PATCH', 
+                url: 'http://localhost:8000/questions/like/'+ques._id,
+                data :{
+                    activeUserId : activeUserId,
+                    activeUserName : activeUserName
+                }
+            })
+            getAllQuestion(userId,setQuestions )
+            }
+            catch(error){
+                console.log(error)
+            }
         }
-    }
+    } 
+    
    
     return<div>
-       <h1> {user.userName}  </h1>
-       {console.log('Active_is_followers', active_is_follower)}
-       <button onClick={()=>followOrunFollow()} className ={active_is_follower ? 'true-follow':'follow-btn'}>
-           { active_is_follower ? 'UNFOLLOW': 'FOLLOW'}
-        </button> 
+        <div>
+            <h1> {user.userName}  </h1>
+            <button onClick={()=>followOrunFollow()} className ={active_is_follower ? 'true-follow':'follow-btn'}>
+             { active_is_follower ? 'UNFOLLOW': 'FOLLOW'}
+            </button>
+        </div>
+        
        <br></br>
-       <form onSubmit = {(e)=>askQuestion(userId, e)}>
-            <input 
-                type = 'text'
+       <form className='ques_form' onSubmit = {(e)=>askQuestion(userId, e)}>
+            < textarea
+                rows="4" 
                 value ={quesBody}
                 onChange={(e)=> setQuesBody(e.target.value)}
                 required = {true}
@@ -138,11 +166,11 @@ const User = (props)=> {
                 className = 'ques-input'
                 min={2}
             />
-            <button >Send</button>
+            <button className='answer-btn'> <i className="material-icons">send</i> </button>
         </form>
             {
                 questions.length > 0 ?
-                    questions.map(ques=> { 
+                    questions.map((ques, i)=> { 
                         return(
                             ques.answer ? 
                             <div className='question' key = {ques._id}>
@@ -151,7 +179,28 @@ const User = (props)=> {
                                 <div  className='question-body'>{ques.body}</div>
                                 <div className='question-answer'> {ques.answer}</div>
                               
-                                <button title ='Love' onClick={()=>like(ques._id,)} className='love-btn'> <i className="material-icons">favorite</i>j</button>
+                                {loved = false}
+
+                                {
+                                ques.likes.forEach(liker => {
+                                    if (liker.userId == activeUserId) {
+                                    console.log(liker.userName +'likes the ques');
+                                    loved = true
+                                    }
+                                    else
+                                        loved = false
+                                })
+                                }
+                                <div 
+                                    title ={loved? 'unLike' : 'Like'}
+                                    onClick={()=>likeOrDislike(ques, i)}
+                                    className={`love-btn  love${i}`}
+                                    className={loved ? `love-btn  love${i} loved` : `love-btn  love${i} not_loved`}
+                                > 
+                                    <div><i className="material-icons">favorite</i> </div>
+                                    <div className='likes_number'>{parseInt(ques.likes.length)}</div> 
+                                </div>
+
                             </div>:null
                         )
                     })

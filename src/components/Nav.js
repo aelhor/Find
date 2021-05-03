@@ -2,6 +2,9 @@ import React, { useContext } from 'react'
 import { userContext } from '../context'
 let userName = localStorage.getItem('activeUserName')
 
+const logOutConfirm = ()=>{
+    return window.confirm('Log out ?')
+}
 const Nav = (props) => { 
     const {logedIn} = useContext(userContext)
     
@@ -13,7 +16,12 @@ const Nav = (props) => {
                 <a href='/people' className = 'nav-link'  >People</a>
                 <a href='/login' className = 'nav-link'  >
                     <button className='logout-btn'
-                        onClick={()=> localStorage.clear()}
+                        onClick={()=>{ 
+                            const x = logOutConfirm()
+                            if(x) 
+                                localStorage.clear()   
+                            }
+                        }
                     >Log Out</button>   
                 </a>
             </nav> : 

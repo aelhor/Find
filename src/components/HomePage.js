@@ -3,18 +3,31 @@ import axios from 'axios'
 import { userContext } from '../context'
 
 
-let now = new Date()
 const getAllQuestion = async(activeUserId,setQuestions)=> { 
   try {
     const res = await axios.get('https://chiedimi.herokuapp.com/questions/' + activeUserId)  
     // console.log('fetching questions Response : ', res)
     setQuestions(res.data)
-    console.log(res.data)
+    console.log('allQuestion : ',res.data)
   } 
   catch (error) {
     console.log('fetching questions Error : ',  error);
   }
 } 
+const getOneQues = async (quesId) =>{ 
+  try {
+      const resOneQues = await axios({
+        method : 'GET', 
+        url: 'http://localhost:8000/question/'+quesId,
+    })
+    // console.log('resOneQues : ', resOneQues)
+    return resOneQues.data.ques
+
+  } catch (error) {
+    console.log(error);
+  } 
+}
+let loved = false
 // ### likes branch from front end 
 const HomePage = (props) => { 
     const {logedIn} = useContext(userContext) 
@@ -58,17 +71,59 @@ const HomePage = (props) => {
         console.log('delete questions Error : ',  error);
       }
     }
+
+    const likeOrDislike =async (ques, i)=>{
+      let activeLikedQues = false
+      let loveBtnI = document.querySelector( `.love${i}`)
+      if (loveBtnI.classList.contains('loved')){
+        activeLikedQues = true
+      }
+
+      if (activeLikedQues ){
+        try{
+          const res = await axios({
+              method : 'PATCH', 
+              url: 'http://localhost:8000/questions/dislike/'+ques._id,
+              data :{
+                  activeUserId : activeUserId,
+                  activeUserName : activeUserName
+              }
+          })
+          getAllQuestion(activeUserId,setQuestions )
+
+        }
+        catch(error){
+            console.log(error)
+        }
+      }
+      else{
+        try{
+          const res = await axios({
+              method : 'PATCH', 
+              url: 'http://localhost:8000/questions/like/'+ques._id,
+              data :{
+                  activeUserId : activeUserId,
+                  activeUserName : activeUserName
+              }
+          })
+          getAllQuestion(activeUserId,setQuestions )
+        }
+        catch(error){
+            console.log(error)
+        }
+      }
+    } 
+  
     return <div className='homepage-container'>
        <h1>GOSSIP -_-</h1>
       <img className='homepage-img' alt = 'homepage' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSoA7sqDWhOZp9DnsDsF7-K1CJQftvEOd8gw&usqp=CAU'/>
        {logedIn ?
        <div>
          <h1>{activeUserName}</h1>
-         <h3 title='Chiedimi means ask me in italian'>Ask me  ...</h3>
+         <h3 title='I have time to kill'>Ask me  ...</h3>
          {
-           questions.map(ques=> {
-             return(
-               <div key={ ques._id}>
+           questions.map((ques, i)=> {
+             return <div key={ ques._id}>
                   {
                     ques.answer ? 
                     <div className='question'>
@@ -79,10 +134,37 @@ const HomePage = (props) => {
                       <br/><br/>
                       <div className='question-body'>{ques.body}</div>
                       <div className='question-answer'>{ques.answer} </div>
-                      <button title ='Love'  className='love-btn'> <i className="material-icons">favorite</i> x</button>
+                      {loved = false}
 
+                      {
+                       ques.likes.forEach(liker => {
+                        if (liker.userId == activeUserId) {
+                          console.log(liker.userName +'likes the ques');
+                          loved = true
+                        }
+                        else
+                            loved = false
+                       })
+                      }
+                      <div className='action_container'>
+                        <div className='like_container'>
+                          <div 
+                            className={`love-btn  love${i}`}
+                              title ={loved? 'unLike' : 'Like'}
+                              onClick={()=>likeOrDislike(ques, i)}
+                              className={loved ? `love-btn  love${i} loved` : `love-btn  love${i} not_loved`}
+                          > 
+                              <i className="material-icons">favorite</i> 
+                          </div>
+                          <div className='likes_number'>{parseInt(ques.likes.length)}</div> 
+                        </div>
+
+                        <div className='comment_container'>comment</div>
+                      </div>
+                      
                     </div> : 
-                    
+          
+          // Not Answered Questions
                     <div className='question'>
                        <small className ='ques-time'>{
                           new Date(ques.createdAt).toUTCString().slice(4, 22) }
@@ -91,20 +173,21 @@ const HomePage = (props) => {
                         <br/>
                       <div className='question-body'>{ques.body}</div>
                       
-                      <form onSubmit ={(e)=> answerQuestion(ques._id, e)} >
-                      <input 
-                        type='text' 
+                      <form className='ques_form' onSubmit ={(e)=> answerQuestion(ques._id, e)} >
+                      <textarea 
+                        rows="4" 
+                        value = {answer}
                         placeholder='Enter your answer' 
                         name={ques._id}
                         onChange ={e=>{
                           setAnswer(e.target.value) 
                         }}/>
-                          <button title='Answer' className='answer-btn'><i className="material-icons">send</i></button>
+                          <button title='Answer' className='answer-btn'>  <i className="material-icons">send</i></button>
                         </form>
                     </div>
                   }
                </div>
-             )
+             
            })
          }
        </div>: 
