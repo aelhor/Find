@@ -53,9 +53,12 @@ a:hover{
   color: #9E9E9E;
   float: left;
 }
-.action_container { 
+.action_container , .actions-numbers{ 
   display:flex;
   justify-content: space-evenly;
+}
+.actions-numbers a { 
+  color: #9e9e9e;
 }
 .like_container { 
   display: flex;
@@ -64,6 +67,29 @@ a:hover{
   color: #585858;
   text-decoration: line-through;
 }
+/* not used */
+.ques_datails_container { 
+  display: none;
+  position: fixed;
+  width: 70%;
+  margin: auto;
+  height: 95%;
+  background-color: #000000;
+  z-index: 2;
+  inset: 0px;
+  box-shadow: 0 4px 8px 0 rgb(204 204 204 / 23%), 0 6px 20px 0 rgb(255 255 255 / 19%);
+  text-align: left;
+}
+.ques_datails_container button{
+  padding: 0.3rem 1rem;
+  color: #FFF;
+  background: #ff0404;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+
+
 /* Nav Component */
 nav{
   margin: 0 0 1.2rem 0;
@@ -106,8 +132,26 @@ nav{
 .material-icons{
   font-size: 1rem;
 }
-
 /* User Component  */
+.success {
+  color: #000;
+  background-color: #ddffdd;
+  border-left: 6px solid #04AA6D;
+  display:none
+}
+.failed{
+  color: #000;
+  background-color: #ffdddd;
+  border-left: 6px solid #f44336;
+  display:none
+}
+.user_note{
+  margin-bottom: .3rem;
+  padding: .1rem .2rem;
+}
+.display_note{
+  display: block;
+}
 .question { 
    background: #111111;
    overflow: auto;
@@ -131,6 +175,11 @@ nav{
 }
 .likes_number{
   margin-left: .4rem;
+  cursor: pointer;
+  color: #9e9e9e;
+}
+.likes_number:hover{ 
+  text-decoration: underline;
 }
 
 .true-follow{
@@ -196,6 +245,33 @@ li{
   list-style-type: circle;
 
 }
+/* QuestionLikes component */
+
+.ques_likes_container { 
+  text-align: left;
+  height: 25rem;
+  padding: .4rem;
+  border: 1px solid;
+}
+.ques_likes_container h4{
+  display: inline;
+}
+.likes-num { 
+  float: right;
+  color: tomato;
+}
+.liked_by_container{
+  margin: .7rem 0;
+}
+.liked_by{
+  padding: .3rem;
+}
+.liked_by a {
+  color: #ccc;
+
+}
+
+
 /* LogIn component && SignUp Component */
 
 .form-container{

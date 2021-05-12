@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+
 let loved = false
 
 const getAllQuestion = (userId, setQuestions)=> { 
@@ -21,6 +22,8 @@ const User = (props)=> {
     const activeUserId = localStorage.getItem('userId')
     const activeUserName = localStorage.getItem('activeUserName')
     const  [active_is_follower, set_Active_is_follower] = useState(false)
+    const sucessNote = document.querySelector('.success')
+    const failedNote = document.querySelector('.failed')
 
     useEffect(()=> { 
         // get the user's info 
@@ -61,9 +64,16 @@ const User = (props)=> {
 
             // clear the input 
             setQuesBody('')
+            //display a sucessful message 
+            // setTimeout(() => {
+            //     sucessNote.classList.add('display_note')
+            // }, 2000);
           })
           .catch(error=> {
             console.log(error);
+            // setTimeout(() => {
+            //     failedNote.classList.add('display_note')
+            // }, 2000);
           })
     }
 
@@ -116,7 +126,7 @@ const User = (props)=> {
             try{
             const res = await axios({
                 method : 'PATCH', 
-                url: 'http://localhost:8000/questions/dislike/'+ques._id,
+                url: 'https://chiedimi.herokuapp.com/questions/dislike/'+ques._id,
                 data :{
                     activeUserId : activeUserId,
                     activeUserName : activeUserName
@@ -132,7 +142,7 @@ const User = (props)=> {
             try{
             const res = await axios({
                 method : 'PATCH', 
-                url: 'http://localhost:8000/questions/like/'+ques._id,
+                url: 'https://chiedimi.herokuapp.com/questions/like/'+ques._id,
                 data :{
                     activeUserId : activeUserId,
                     activeUserName : activeUserName
@@ -149,12 +159,11 @@ const User = (props)=> {
    
     return<div>
         <div>
-            <h1> {user.userName}  </h1>
+            <h1> {user ?user.userName : 'Null' }  </h1>
             <button onClick={()=>followOrunFollow()} className ={active_is_follower ? 'true-follow':'follow-btn'}>
              { active_is_follower ? 'UNFOLLOW': 'FOLLOW'}
             </button>
         </div>
-        
        <br></br>
        <form className='ques_form' onSubmit = {(e)=>askQuestion(userId, e)}>
             < textarea
@@ -184,21 +193,30 @@ const User = (props)=> {
                                 {
                                 ques.likes.forEach(liker => {
                                     if (liker.userId == activeUserId) {
-                                    console.log(liker.userName +'likes the ques');
-                                    loved = true
+                                        console.log(liker.userName +'likes the ques');
+                                        loved = true
                                     }
                                     else
                                         loved = false
                                 })
                                 }
-                                <div 
-                                    title ={loved? 'unLike' : 'Like'}
-                                    onClick={()=>likeOrDislike(ques, i)}
-                                    className={`love-btn  love${i}`}
-                                    className={loved ? `love-btn  love${i} loved` : `love-btn  love${i} not_loved`}
-                                > 
-                                    <div><i className="material-icons">favorite</i> </div>
-                                    <div className='likes_number'>{parseInt(ques.likes.length)}</div> 
+                                <div className='action_container'>
+                                    <div 
+                                        className={`love-btn  love${i}`}
+                                        title ={loved? 'unLike' : 'Like'}
+                                        onClick={()=>likeOrDislike(ques, i)}
+                                        className={loved ? `love-btn  love${i} loved` : `love-btn  love${i} not_loved`}
+                                    > 
+                                        <i className="material-icons">favorite</i> 
+                                    </div>
+                                    <div className='comment_btn'>
+                                        <i className="material-icons">comment</i> 
+                                    </div>
+                                </div>
+                                
+                                <div className='actions-numbers'>
+                                    <a href={'/ques/'+ques._id} >{parseInt(ques.likes.length)} Likes </a> 
+                                    <a href='#'>0 Reply</a>
                                 </div>
 
                             </div>:null

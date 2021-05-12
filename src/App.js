@@ -9,6 +9,8 @@ import { userContext } from './context';
 import People from './components/People';
 import User from './components/User';
 import Following from './components/Following';
+import QuestionLikes from './components/QuestionLikes';
+
 
 function App() {
   const haveToken = localStorage.getItem('token') ? true : false 
@@ -16,7 +18,7 @@ function App() {
   const [activeUserId, setactiveUserId] = useState('')
 
   return (
-    <div className="App">
+    <div className="App" >
       <userContext.Provider value={{logedIn, setLogedIn, activeUserId, setactiveUserId}}>
         <Nav />
         <Router>
@@ -26,6 +28,7 @@ function App() {
           <Route path = '/user/:id' component ={User}/>
           <Route path = '/following/' component ={Following}/>
           <Route path = '/'component={HomePage } exact/>
+          <Route path = '/ques/:quesId' component={QuestionLikes} />
         </Router>
       </userContext.Provider>
      

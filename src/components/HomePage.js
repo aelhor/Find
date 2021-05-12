@@ -14,19 +14,9 @@ const getAllQuestion = async(activeUserId,setQuestions)=> {
     console.log('fetching questions Error : ',  error);
   }
 } 
-const getOneQues = async (quesId) =>{ 
-  try {
-      const resOneQues = await axios({
-        method : 'GET', 
-        url: 'http://localhost:8000/question/'+quesId,
-    })
-    // console.log('resOneQues : ', resOneQues)
-    return resOneQues.data.ques
 
-  } catch (error) {
-    console.log(error);
-  } 
-}
+
+
 let loved = false
 // ### likes branch from front end 
 const HomePage = (props) => { 
@@ -83,7 +73,7 @@ const HomePage = (props) => {
         try{
           const res = await axios({
               method : 'PATCH', 
-              url: 'http://localhost:8000/questions/dislike/'+ques._id,
+              url: 'https://chiedimi.herokuapp.com/questions/dislike/'+ques._id,
               data :{
                   activeUserId : activeUserId,
                   activeUserName : activeUserName
@@ -100,7 +90,7 @@ const HomePage = (props) => {
         try{
           const res = await axios({
               method : 'PATCH', 
-              url: 'http://localhost:8000/questions/like/'+ques._id,
+              url: 'https://chiedimi.herokuapp.com/questions/like/'+ques._id,
               data :{
                   activeUserId : activeUserId,
                   activeUserName : activeUserName
@@ -113,7 +103,7 @@ const HomePage = (props) => {
         }
       }
     } 
-  
+    
     return <div className='homepage-container'>
        <h1>GOSSIP -_-</h1>
       <img className='homepage-img' alt = 'homepage' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSoA7sqDWhOZp9DnsDsF7-K1CJQftvEOd8gw&usqp=CAU'/>
@@ -121,6 +111,8 @@ const HomePage = (props) => {
        <div>
          <h1>{activeUserName}</h1>
          <h3 title='I have time to kill'>Ask me  ...</h3>
+         
+
          {
            questions.map((ques, i)=> {
              return <div key={ ques._id}>
@@ -147,21 +139,24 @@ const HomePage = (props) => {
                        })
                       }
                       <div className='action_container'>
-                        <div className='like_container'>
                           <div 
                             className={`love-btn  love${i}`}
-                              title ={loved? 'unLike' : 'Like'}
-                              onClick={()=>likeOrDislike(ques, i)}
-                              className={loved ? `love-btn  love${i} loved` : `love-btn  love${i} not_loved`}
+                            title ={loved? 'unLike' : 'Like'}
+                            onClick={()=>likeOrDislike(ques, i)}
+                            className={loved ? `love-btn  love${i} loved` : `love-btn  love${i} not_loved`}
                           > 
                               <i className="material-icons">favorite</i> 
                           </div>
-                          <div className='likes_number'>{parseInt(ques.likes.length)}</div> 
-                        </div>
-
-                        <div className='comment_container'>comment</div>
+                          <div className='comment_btn'>
+                             <i className="material-icons">comment</i> 
+                          </div>
                       </div>
                       
+                      <div className='actions-numbers'>
+                        <a href={'ques/' + ques._id} >{parseInt(ques.likes.length)} Likes </a> 
+                        <a href='#'>0 Reply</a>
+                      </div>
+
                     </div> : 
           
           // Not Answered Questions
