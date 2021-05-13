@@ -14,7 +14,7 @@ const Login = (props) => {
     
     const login = async (e)=>  {
         e.preventDefault()
-        try {  ///        Test This 
+        try {  
             const res = await axios({
                 method : "POST",
                 url : 'https://chiedimi.herokuapp.com/login', 
@@ -33,30 +33,6 @@ const Login = (props) => {
         } catch (error) {
             console.log(error)
         }
-        // axios({
-        //     method: 'post',
-        //     url: 'https://chiedimi.herokuapp.com/login',
-        //     data: {
-        //         email : email , 
-        //         password : password
-        //     }, 
-        //   })
-        //   .then(res=> {
-        //         console.log('res : ', res) //
-        //         localStorage.setItem('token', res.data.token)
-        //         localStorage.setItem('userId', res.data.id)
-        //         localStorage.setItem('activeUserName', res.data.userName)
-
-        //         setLogedIn(true)
-        //         setactiveUserId(res.data.id)
-
-        //         props.history.push('/')
-        //     })
-        //   .catch(err=>
-        //     {
-        //         console.log(err.message)//
-        //         setLoginError(true)
-        //     }) // Invalid email or password
     }
     return(
         <>

@@ -12,7 +12,7 @@ const Signup = (props) => {
 
     const signUp = async(e)=>  {
         e.preventDefault()
-        try {  ///        Test This 
+        try { 
             const res = await axios({
                 method : "POST",
                 url : 'https://chiedimi.herokuapp.com/signup', 
@@ -31,25 +31,7 @@ const Signup = (props) => {
             console.log(error, 'user name or email already exist')
             setSignupError(true)
         }
-        // axios.post('https://chiedimi.herokuapp.com/signup', {
-        //         email : email , 
-        //         password : password,
-        //         userName : userName
-        //     }) 
-        // .then(res=>{ 
-        //     // // console.log('Response : ',res) //
-        //     localStorage.setItem('token', res.data.token)
-        //     localStorage.setItem('userId', res.data.newUser.id)
-        //     localStorage.setItem('activeUserName', res.data.newUser.userName)// userName is not in the response
 
-        //     setLogedIn(true)
-        //     props.history.push('/') 
-        // }) 
-        
-        // .catch(err=>{
-        //     // console.log(err)
-        // })
-        
     }
     return(
         <div className='form-container'>  
