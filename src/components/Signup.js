@@ -22,11 +22,11 @@ const Signup = (props) => {
                     userName : userName
                 }
             })
-            localStorage.setItem('token', res.data.token)
             localStorage.setItem('userId', res.data.newUser.id)
             localStorage.setItem('activeUserName', res.data.newUser.userName)//userName is not in the response
             setLogedIn(true)
             props.history.push('/') 
+            console.log(res)
         } catch (error) {
             console.log(error, 'user name or email already exist')
             setSignupError(true)

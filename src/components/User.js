@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import cookie from 'js-cookie'
+
 
 let loved = false
-
-const getAllQuestion = (userId, setQuestions)=> { 
-    axios.get('https://chiedimi.herokuapp.com/questions/' + userId)
-    .then(res=> { 
-        console.log('fetching questions Response : ', res);
+const getAllQuestion = async(userId, setQuestions)=> { 
+    try {
+        const res = await axios({
+          method : 'GET', 
+          url : 'https://chiedimi.herokuapp.com/questions/' + userId,
+          headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
+        })
+        console.log('fetching questions Response : ', res)
         setQuestions(res.data)
-    })
-    .catch(error=> {
-        // // console.log('fetching questions Error : ',  error);
-    })
+        console.log('allQuestion : ',res.data)
+      } 
+      catch (error) {
+        console.log('fetching questions Error : ',  error);
+      }
 }
 const User = (props)=> { 
     const [user, setUser] = useState({})
@@ -27,24 +33,29 @@ const User = (props)=> {
 
     useEffect(()=> { 
         // get the user's info 
-        axios.get('https://chiedimi.herokuapp.com/users/' + userId)
-        .then(res=> {
-            console.log('user  :', res.data.user);
-            setUser(res.data.user)
-            // check if acive user is already a follower  
-            for(let i = 0 ; i < res.data.user.followers.length ; i++){
-                if(activeUserId === res.data.user.followers[i].userId ){
-                    set_Active_is_follower(true)
-                    document.querySelector('.follow-btn').classList.add('true-follow')
-                    console.log('active is a follower')
-                    break
+        const getUserInfo =async ()=> {
+            try {
+                let res = await axios({
+                    method : 'GET',
+                    url : 'https://chiedimi.herokuapp.com/users/' + userId,
+                    headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
+                })
+                console.log('user  :', res.data.user);
+                setUser(res.data.user)
+                // check if acive user is already a follower  
+                for(let i = 0 ; i < res.data.user.followers.length ; i++){
+                    if(activeUserId === res.data.user.followers[i].userId ){
+                        set_Active_is_follower(true)
+                        document.querySelector('.follow-btn').classList.add('true-follow')
+                        console.log('active is a follower')
+                        break
+                    }
                 }
+            } catch (error) {
+                console.log(error);
             }
-        })
-        .catch(error=> { 
-            // console.log(error);
-        })
-
+        }
+        getUserInfo()
         // get all usre's questions
         getAllQuestion(userId, setQuestions)
 
@@ -55,19 +66,15 @@ const User = (props)=> {
         axios({
             method: 'Post',
             url: 'https://chiedimi.herokuapp.com/questions/ask/' + userId,
+            headers : {Authorization : `Bearer ${cookie.get('jwt')}` },
             data: {
               body : quesBody
             }, 
           })
           .then(res=> {             
             console.log(res)
-
             // clear the input 
             setQuesBody('')
-            //display a sucessful message 
-            // setTimeout(() => {
-            //     sucessNote.classList.add('display_note')
-            // }, 2000);
           })
           .catch(error=> {
             console.log(error);
@@ -83,6 +90,7 @@ const User = (props)=> {
             axios({
                 method: 'Post',
                 url: 'https://chiedimi.herokuapp.com/users/follow/' + activeUserId,
+                headers : {Authorization : `Bearer ${cookie.get('jwt')}` },
                 data: {
                     targetId : userId ,// target User Id
                     targetUserName : user.userName,
@@ -101,6 +109,7 @@ const User = (props)=> {
             axios({
                 method: 'Post',
                 url: 'https://chiedimi.herokuapp.com/users/unfollow/' + activeUserId,
+                headers : {Authorization : `Bearer ${cookie.get('jwt')}` },
                 data: {
                     targetId : userId ,// target User Id
                     targetUserName : user.userName,
@@ -127,6 +136,7 @@ const User = (props)=> {
             const res = await axios({
                 method : 'PATCH', 
                 url: 'https://chiedimi.herokuapp.com/questions/dislike/'+ques._id,
+                headers : {Authorization : `Bearer ${cookie.get('jwt')}` },
                 data :{
                     activeUserId : activeUserId,
                     activeUserName : activeUserName
@@ -143,6 +153,7 @@ const User = (props)=> {
             const res = await axios({
                 method : 'PATCH', 
                 url: 'https://chiedimi.herokuapp.com/questions/like/'+ques._id,
+                headers : {Authorization : `Bearer ${cookie.get('jwt')}` },
                 data :{
                     activeUserId : activeUserId,
                     activeUserName : activeUserName
@@ -158,6 +169,7 @@ const User = (props)=> {
     
    
     return<div>
+        {console.log('Questions : ', questions)}
         <div>
             <h1> {user ?user.userName : 'Null' }  </h1>
             <button onClick={()=>followOrunFollow()} className ={active_is_follower ? 'true-follow':'follow-btn'}>
@@ -187,9 +199,7 @@ const User = (props)=> {
                                   new Date(ques.createdAt).toUTCString().slice(4, 22)}</small><br/>
                                 <div  className='question-body'>{ques.body}</div>
                                 <div className='question-answer'> {ques.answer}</div>
-                              
                                 {loved = false}
-
                                 {
                                 ques.likes.forEach(liker => {
                                     if (liker.userId == activeUserId) {
@@ -219,7 +229,7 @@ const User = (props)=> {
                                     <a href='#'>0 Reply</a>
                                 </div>
 
-                            </div>:null
+                            </div>: null
                         )
                     })
                 :

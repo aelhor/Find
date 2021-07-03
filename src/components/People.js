@@ -1,33 +1,27 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import cookie from 'js-cookie'
+
 
 const People = (props)=> { 
     const [users, setUsers] = useState([])
     const activeUserId = localStorage.getItem('activeUserId')
-
-
     useEffect(()=> { 
         // get all the users 
         const getAllUser = async () => {
             try {
-                let res = await axios.get('https://chiedimi.herokuapp.com/users')
+                let res = await axios({
+                    method : 'GET', 
+                    url:'https://chiedimi.herokuapp.com/users',
+                    headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
+                })
                 console.log(res.data)
                 setUsers(res.data.users)
-
             } catch (error) {
                 console.log(error);
-
             }
         }
         getAllUser()
-        // axios.get('https://chiedimi.herokuapp.com/users')
-        // .then(res=> {
-        //     console.log(res.data);
-        //     setUsers(res.data.users)
-        // })
-        // .catch(error=> { 
-        //     console.log(error);
-        // })
     }, [])
    
 //   

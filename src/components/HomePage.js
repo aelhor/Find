@@ -1,12 +1,17 @@
 import React, { useEffect, useState, useContext } from 'react'
 import axios from 'axios'
 import { userContext } from '../context'
+import cookie from 'js-cookie'
 
 
 const getAllQuestion = async(activeUserId,setQuestions)=> { 
   try {
-    const res = await axios.get('https://chiedimi.herokuapp.com/questions/' + activeUserId)  
-    // console.log('fetching questions Response : ', res)
+    const res = await axios({
+      method : 'GET', 
+      url : 'https://chiedimi.herokuapp.com/questions/' + activeUserId,
+      headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
+    })
+    console.log('fetching questions Response : ', res)
     setQuestions(res.data)
     console.log('allQuestion : ',res.data)
   } 
@@ -14,8 +19,6 @@ const getAllQuestion = async(activeUserId,setQuestions)=> {
     console.log('fetching questions Error : ',  error);
   }
 } 
-
-
 
 let loved = false
 // ### likes branch from front end 
@@ -43,6 +46,7 @@ const HomePage = (props) => {
             data: {
               answer : answer
             }, 
+            headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
           })
           console.log(res);
           getAllQuestion(activeUserId,setQuestions)
@@ -53,7 +57,10 @@ const HomePage = (props) => {
     } 
     const deleteQuestion = async(quesId)=>{
       try {
-        const res = await axios.delete('https://chiedimi.herokuapp.com/questions/delete/' + quesId)  
+        const res = await axios({
+          url : 'https://chiedimi.herokuapp.com/questions/delete/' + quesId ,
+          headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
+        })
         console.log('question deleted : ', res)
         getAllQuestion(activeUserId,setQuestions)
       } 
@@ -68,7 +75,6 @@ const HomePage = (props) => {
       if (loveBtnI.classList.contains('loved')){
         activeLikedQues = true
       }
-
       if (activeLikedQues ){
         try{
           const res = await axios({
@@ -77,7 +83,8 @@ const HomePage = (props) => {
               data :{
                   activeUserId : activeUserId,
                   activeUserName : activeUserName
-              }
+              },
+              headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
           })
           getAllQuestion(activeUserId,setQuestions )
 
@@ -94,7 +101,8 @@ const HomePage = (props) => {
               data :{
                   activeUserId : activeUserId,
                   activeUserName : activeUserName
-              }
+              },
+              headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
           })
           getAllQuestion(activeUserId,setQuestions )
         }
@@ -107,13 +115,12 @@ const HomePage = (props) => {
     return <div className='homepage-container'>
        <h1>GOSSIP -_-</h1>
       <img className='homepage-img' alt = 'homepage' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSoA7sqDWhOZp9DnsDsF7-K1CJQftvEOd8gw&usqp=CAU'/>
-       {logedIn ?
+       {logedIn  ?
        <div>
          <h1>{activeUserName}</h1>
          <h3 title='I have time to kill'>Ask me  ...</h3>
-         
-
          {
+           questions.length > 0 ? 
            questions.map((ques, i)=> {
              return <div key={ ques._id}>
                   {
@@ -158,7 +165,6 @@ const HomePage = (props) => {
                       </div>
 
                     </div> : 
-          
           // Not Answered Questions
                     <div className='question'>
                        <small className ='ques-time'>{
@@ -183,6 +189,7 @@ const HomePage = (props) => {
                </div>
              
            })
+           : <div>Looking for your question... </div>
          }
        </div>: 
        <p>Please <a href='/login'>Login</a> First ...</p>

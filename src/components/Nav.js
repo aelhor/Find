@@ -1,5 +1,7 @@
 import React, { useContext,useEffect } from 'react'
 import { userContext } from '../context'
+import cookie from 'js-cookie'
+
 let userName = localStorage.getItem('activeUserName')
 
 const logOutConfirm = ()=>{
@@ -18,6 +20,7 @@ const Nav = (props) => {
                     onClick={()=>{ 
                         if(logOutConfirm()) {
                             localStorage.clear() 
+                            cookie.remove('jwt')
                         }                        
                     }}
                 >Log Out</button>  

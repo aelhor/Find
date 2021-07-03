@@ -1,17 +1,15 @@
 import React, { useState, useContext } from 'react'
 import axios from 'axios'
-// import cookie from 'js-cookie'
+import cookie from 'js-cookie'
 import { userContext } from '../context'
 
 const Login = (props) => { 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [loginError, setLoginError ] = useState(false)
-    
+    const [loginError, setLoginError ] = useState('')    
     const {logedIn, setLogedIn} = useContext(userContext)
     const {setactiveUserId} = useContext(userContext)
 
-    
     const login = async (e)=>  {
         e.preventDefault()
         try {  
@@ -21,17 +19,18 @@ const Login = (props) => {
                 data : {
                     email : email , 
                     password : password,
-                }
+                },
             })
             console.log('res : ', res) 
-            localStorage.setItem('token', res.data.token)
             localStorage.setItem('userId', res.data.id)
             localStorage.setItem('activeUserName', res.data.userName)//userName is not in the response
+            cookie.set('jwt', res.data.token)
             setLogedIn(true)
             setactiveUserId(res.data.id)
             props.history.push('/') 
         } catch (error) {
             console.log(error)
+            setLoginError(error.message)
         }
     }
     return(
@@ -65,7 +64,7 @@ const Login = (props) => {
                 }
                 
                 {
-                    loginError && <p> Invalid e-mail or password</p>
+                    loginError && <p style={{'color' : '#f00'}}> Invalid e-mail or password</p>
                 }
             </div>
         </>

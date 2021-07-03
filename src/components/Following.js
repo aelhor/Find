@@ -1,28 +1,28 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import cookie from 'js-cookie'
 
 const Following = (props)=> { 
     const [following, setFollowing] = useState([])
     const [error, setError] = useState(false)
-
-
     const activeUserId = localStorage.getItem('userId')
 
-
     useEffect(()=> { 
-        axios.get('https://chiedimi.herokuapp.com/users/'+activeUserId)
-        .then(res=> {
-            // // console.log('Following : ',res.data.user.following); // array of objs
-            setFollowing(res.data.user.following)
-
-            // fetch the username of the foolowing IDs
-           
-           
-        })
-        .catch(error=> { 
-            setError(true)
-            // console.log(error);
-        })
+        const getUserFollowing = async() => {
+            try {
+                let res = await axios({
+                    method : 'GET', 
+                    url:'https://chiedimi.herokuapp.com/users/'+ activeUserId,
+                    headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
+                })
+                console.log('Following : ',res.data.user.following); // array of objs
+                setFollowing(res.data.user.following)
+            } catch (error) {
+                console.log(error);
+                setError(true)
+            }
+        }
+        getUserFollowing()   
     }, [activeUserId])
    
 

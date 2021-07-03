@@ -10,10 +10,11 @@ import People from './components/People';
 import User from './components/User';
 import Following from './components/Following';
 import QuestionLikes from './components/QuestionLikes';
+import cookie from 'js-cookie'
 
 
 function App() {
-  const haveToken = localStorage.getItem('token') ? true : false 
+  const haveToken = cookie.get('jwt') ? true : false 
   const [logedIn, setLogedIn] = useState(haveToken)
   const [activeUserId, setactiveUserId] = useState('')
 

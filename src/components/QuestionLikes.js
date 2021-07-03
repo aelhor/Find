@@ -1,11 +1,14 @@
 import React , {useEffect, useState} from 'react'
 import axios from 'axios'
+import cookie from 'js-cookie'
+
 
 const getOneQues = async (quesId, setLikes, setQuestion) =>{  
     try {
         const resOneQues = await axios({
-          method : 'GET', 
-          url: 'https://chiedimi.herokuapp.com/question/'+ quesId,
+            method : 'GET', 
+            url: 'https://chiedimi.herokuapp.com/question/'+ quesId,
+            headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
       })
         console.log('resOneQues : ', resOneQues)
         setLikes(resOneQues.data.ques.likes)
@@ -40,6 +43,7 @@ const QuestionLikes = (props) => {
             axios({
                 method: 'Post',
                 url: 'https://chiedimi.herokuapp.com/users/follow/' + activeUserId,
+                headers : {Authorization : `Bearer ${cookie.get('jwt')}` },
                 data: {
                     targetId : likes.userId ,// target User Id
                     targetUserName : likes.userName,
@@ -58,6 +62,7 @@ const QuestionLikes = (props) => {
             axios({
                 method: 'Post',
                 url: 'https://chiedimi.herokuapp.com/users/unfollow/' + activeUserId,
+                headers : {Authorization : `Bearer ${cookie.get('jwt')}` },
                 data: {
                     targetId : likes.userId ,// target User Id
                     targetUserName : likes.user.userName,
