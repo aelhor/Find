@@ -19,7 +19,6 @@ const getOneQues = async (quesId, setLikes, setQuestion) =>{
 }
 
 
-
 const QuestionLikes = (props) => { 
     const [likes, setLikes] = useState([])
     const [ques, setQuestion] = useState({})
