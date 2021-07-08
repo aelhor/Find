@@ -4,8 +4,6 @@ import { userContext } from '../context'
 import Question from './Question'
 import {getAllQuestion, answerQuestion, deleteQuestion, likeOrDislike} from '../functions/quesFunction' 
 
-let loved = false
-// ### likes branch from front end 
 const HomePage = () => { 
     const {logedIn} = useContext(userContext) 
     // const {activeUserId} = useContext(userContext)
