@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  background-color: #01072c;
+  background-color: #000;
   color: #FFF;
   padding: 1rem ;
 
@@ -273,7 +273,6 @@ li{
 
 
 /* LogIn component && SignUp Component */
-
 .form-container{
   padding: 1rem;
   color: #fff;
@@ -289,5 +288,9 @@ li{
 }
 label {
   display: block;
+}
+.fb_btn {
+  background: #3F51B5;
+  color: #fff;
 }
 

@@ -70,6 +70,8 @@ const Signup = (props) => {
                     /><br/>
                 <button>Sign Up</button>
                 <small className='message'>{signupError ? 'username or email already exist..let\'s try anain' : null} </small>
+                <button className = 'fb_btn'>continue with facebook</button>
+            
             </form> :<h3>you are loged In </h3>
             }
             
