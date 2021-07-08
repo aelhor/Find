@@ -3,8 +3,6 @@ import React from  'react'
 const Question =(props) => { 
     let loved = false
     const activeUserId  = localStorage.getItem('userId')
-    
-
     return (
         props.answer.length > 0?
         <div className='question'>
@@ -15,9 +13,7 @@ const Question =(props) => {
             <br/><br/>
             <div className='question-body'>{props.body}</div>
             <div className='question-answer'>{props.answer} </div>
-            
             {loved = false}
-
             {
             props.likes.forEach(liker => {
             if (liker.userId === activeUserId) {

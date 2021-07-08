@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react'
 import axios from 'axios'
+import cookie from 'js-cookie'
+
 import { userContext } from '../context'
 import Question from './Question'
-import {getAllQuestion, answerQuestion, deleteQuestion, likeOrDislike} from '../functions/quesFunction' 
+import {getAllQuestion, likeOrDislike} from '../functions/quesFunction' 
 
 const HomePage = () => { 
     const {logedIn} = useContext(userContext) 
@@ -11,6 +13,43 @@ const HomePage = () => {
     const activeUserName = localStorage.getItem('activeUserName')
     const [questions, setQuestions] = useState([]) 
     const [answer, setAnswer] = useState('')
+
+    const answerQuestion = async (quesId, e)=> { 
+      // send a patch req to the server to answer this ques 
+      e.preventDefault()
+        try {
+          const res = await axios({
+            method: 'Patch',
+            url: 'https://chiedimi.herokuapp.com/questions/answer/' + quesId,
+            data: {
+              answer : answer
+            }, 
+            headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
+          })
+          console.log(res);
+          getAllQuestion(activeUserId,setQuestions)
+        } 
+        catch (error) {
+          console.log(error);
+        }
+    }
+    const deleteQuestion = async(quesId)=>{
+      if (window.confirm('delete this question ? ')) {
+        try {
+          const res = await axios({
+            method :'delete',
+            url : 'https://chiedimi.herokuapp.com/questions/delete/' + quesId ,
+            headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
+          })
+          console.log('question deleted : ', res)
+          const newQuestions =  questions.filter(ques => ques._id !== quesId)
+          setQuestions(newQuestions)
+        } 
+        catch (error) {
+          console.log('delete questions Error : ',  error);
+        }
+      }
+    }
 
     // need to fetch  user's questions 
     useEffect(()=> { 
@@ -36,9 +75,9 @@ const HomePage = () => {
                         likes = {ques.likes}
                         i = {i}
                         page = {'homePage'}
-                        deleteQuestion = {()=>deleteQuestion(ques._id, setQuestions, questions)}
+                        deleteQuestion = {()=>deleteQuestion(ques._id)}
                         likeOrDislike = {()=>likeOrDislike(activeUserId, ques._id, i, setQuestions)}
-                        answerQuestion = {(e)=>answerQuestion(ques._id, e, answer, setQuestions, activeUserId)}
+                        answerQuestion = {(e)=>answerQuestion(ques._id, e)}
                         setAnswer = {setAnswer}                     
                       /> 
                </div>

@@ -44,7 +44,28 @@ const User = (props)=> {
 
     }, [])
 
-    
+    const askQuestion =(userId, e)=> { 
+        e.preventDefault()
+        axios({
+            method: 'Post',
+            url: 'https://chiedimi.herokuapp.com/questions/ask/' + userId,
+            headers : {Authorization : `Bearer ${cookie.get('jwt')}` },
+            data: {
+              body : quesBody
+            }, 
+          })
+          .then(res=> {             
+            console.log(res)
+            // clear the input 
+            setQuesBody('')
+          })
+          .catch(error=> {
+            console.log(error);
+            // setTimeout(() => {
+            //     failedNote.classList.add('display_note')
+            // }, 2000);
+          })
+    }
 
     const followOrunFollow = ()=> { 
         // follow
@@ -95,7 +116,7 @@ const User = (props)=> {
             </button>
         </div>
        <br></br>
-       <form className='ques_form' onSubmit = {(e)=>askQuestion(userId, e, quesBody ,setQuesBody)}>
+       <form className='ques_form' onSubmit = {(e)=>askQuestion(userId, e)}>
             < textarea
                 rows="4" 
                 value ={quesBody}
