@@ -293,4 +293,6 @@ label {
   background: #3F51B5;
   color: #fff;
 }
-
+.fb_btn a { 
+  color: #fff;
+}

@@ -81,7 +81,6 @@ const HomePage = () => {
                         setAnswer = {setAnswer}                     
                       /> 
                </div>
-             
            })
            : <div>Loading ... </div>
          }
