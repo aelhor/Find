@@ -83,7 +83,7 @@ const HomePage = () => {
                </div>
              
            })
-           : <div>Loading ... </div>
+           : <div>No Questions Yet ... </div>
          }
        </div>: 
        <p>Please <a href='/login'>Login</a> First ...</p>

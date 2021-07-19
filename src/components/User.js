@@ -145,7 +145,7 @@ const User = (props)=> {
                         </div>
                     })
                 :
-                    <p> looading ... </p>
+                    <p> No Questions Yet ... </p>
             }
             
     </>
