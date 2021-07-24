@@ -54,10 +54,10 @@ const HomePage = () => {
     // need to fetch  user's questions 
     useEffect(()=> { 
      getAllQuestion(activeUserId,setQuestions )
-    }, [])
+    }, [activeUserId])
         
     return <div className='homepage-container'>
-       <h1>GOSSIP -_-</h1>
+
       <img className='homepage-img' alt = 'homepage' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSoA7sqDWhOZp9DnsDsF7-K1CJQftvEOd8gw&usqp=CAU'/>
        {logedIn  ?
        <div>
@@ -82,7 +82,7 @@ const HomePage = () => {
                       /> 
                </div>
            })
-           : <div>Loading ... </div>
+           : <div>no questions yet ... </div>
          }
        </div>: 
        <p>Please <a href='/login'>Login</a> First ...</p>

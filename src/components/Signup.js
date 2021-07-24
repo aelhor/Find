@@ -1,6 +1,8 @@
 import React, { useState, useContext } from 'react'
 import axios from 'axios'
 import { userContext } from '../context'
+import cookie from 'js-cookie'
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 
 const Signup = (props) => { 
     const [email, setEmail] = useState('')
@@ -8,12 +10,13 @@ const Signup = (props) => {
     const [userName, setUserName] = useState('')
     const [signupError, setSignupError] = useState(false)
     const {logedIn, setLogedIn} = useContext(userContext)
+   
     const signUp = async(e)=>  {
         e.preventDefault()
         try { 
             const res = await axios({
                 method : "POST",
-                url : 'https://chiedimi.herokuapp.com/signup', 
+                url : 'http://localhost:8000/signup', 
                 data : {
                     email : email , 
                     password : password,
@@ -23,6 +26,7 @@ const Signup = (props) => {
             localStorage.setItem('userId', res.data.newUser.id)
             localStorage.setItem('activeUserName', res.data.newUser.userName)//userName is not in the response
             setLogedIn(true)
+            cookie.set('jwt', res.data.newUser.signupToken)
             props.history.push('/') 
             console.log(res)
         } catch (error) {
@@ -30,13 +34,30 @@ const Signup = (props) => {
             setSignupError(true)
         }
     }
-    const fbLogin = async () => { 
-        // [ not working due to Cors issue ]
+    const responseFacebook = async(response) => {
+        const {accessToken, userID, email, name ,picture} = response
+        console.log('client side response : ' , response)
         try {
-            const res = await axios.get('http://localhost:8000/auth/facebook')
-            console.log(res)
-        }catch(er) {
-            console.log('fb login error : ', er.message )
+            const res = await axios({
+                method : 'POST', 
+                url : 'http://localhost:8000/facebookLogin', 
+                data : {
+                    accessToken : accessToken , 
+                    userID : userID , 
+                    email : email,
+                    name: name, 
+                    picture : picture
+                }
+            })
+            console.log('from server : ', res )
+            localStorage.setItem('userId', res.data.newUser.id)
+            localStorage.setItem('activeUserName', res.data.newUser.userName)
+            cookie.set('jwt', res.data.newUser.signupToken)
+            setLogedIn(true)
+            props.history.push('/') 
+
+        } catch (error) {
+            console.log('fbLogin Error : ', error)
         }
     }
 
@@ -78,15 +99,21 @@ const Signup = (props) => {
                         /><br/>
                     <button>Sign Up</button>
                     <small className='message'>{signupError ? 'username or email already exist..let\'s try anain' : null} </small>
-                </form> 
-                {/* <button className = 'fb_btn' onClick = {fbLogin} >continue with facebook</button> */}
+                </form>    
+                <p>already have account? <a href='/login'> Log In </a></p>
+                <FacebookLogin
+                    appId="5681515568585713"
+                    // autoLoad={true}
+                    fields="name,email,picture, birthday"
+                    callback={responseFacebook}
+                    render={renderProps => (
+                        <button className="fb_btn" onClick={renderProps.onClick}>Login With Facebook</button>
+                      )}
+                    />
             </div>
-
             :<h3>you are loged In </h3>
             }
-            
-                
-        </div>
+            </div>
     )
 }
 
