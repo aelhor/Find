@@ -23,9 +23,9 @@ const Login = (props) => {
                     password : password,
                 },
             })
-            console.log('res : ', res) 
+//             console.log('res : ', res) 
             localStorage.setItem('userId', res.data.id)
-            localStorage.setItem('activeUserName', res.data.userName)//userName is not in the response
+            localStorage.setItem('activeUserName', res.data.userName)
             cookie.set('jwt', res.data.token)
             setLogedIn(true)
             setactiveUserId(res.data.id)
@@ -50,7 +50,7 @@ const Login = (props) => {
                     picture : picture
                 }
             })
-            console.log('from server : ', res )
+//             console.log('from server : ', res )
             localStorage.setItem('userId', res.data.newUser.id)
             localStorage.setItem('activeUserName', res.data.newUser.userName)
             cookie.set('jwt', res.data.newUser.signupToken)
