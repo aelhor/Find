@@ -6,15 +6,17 @@ const Question =(props) => {
     return (
         props.answer.length > 0?
         <div className='question'>
-            <small className ='ques-time'>{
-            new Date(props.createdAt).toUTCString().slice(4, 22)
-            } </small>
+            <small className ='ques-time'>{ new Date(props.createdAt).toUTCString().slice(4, 22) }</small>
+            {     
+            props.page === 'homePage'&&      
             <button title ='Delete' onClick={()=>props.deleteQuestion()} className='delete-btn'> <i className="material-icons">delete</i> </button>
+            }          
             <br/><br/>
             <div className='question-body'>{props.body}</div>
             <div className='question-answer'>{props.answer} </div>
             {loved = false}
             {
+<<<<<<< HEAD
             props.likes.forEach(liker => {
             if (liker.userId === activeUserId) {
                 // console.log(liker.userName +'likes the ques');
@@ -23,6 +25,16 @@ const Question =(props) => {
             else
                 loved = false
             })
+=======
+                props.likes.forEach(liker => {
+                if (liker.userId === activeUserId) {
+                    console.log(liker.userName +'likes the ques');
+                    loved = true
+                }
+                else
+                    loved = false
+                })
+>>>>>>> fblogin
             }
             
             <div className='action_container'>
@@ -47,20 +59,19 @@ const Question =(props) => {
         // Not answerd Questions 
             props.page === 'homePage' ? 
                 <div className='question'>
-                    <small className ='ques-time'>{
-                        new Date(props.createdAt).toUTCString().slice(4, 22) }
-                    </small>
-                    <button title ='Delete' onClick={props.deleteQuestion} className='delete-btn'> <i className="material-icons">delete</i> </button>
+                    <small className ='ques-time'>{new Date(props.createdAt).toUTCString().slice(4, 22) }</small>             
+                    {  
+                       props.page === 'homePage' &&         
+                        <button title ='Delete' onClick={props.deleteQuestion} className='delete-btn'> <i className="material-icons">delete</i> </button>
+                    }                    
                     <br/>
                     <div className='question-body'>{props.body}</div>
                     <form className='ques_form' onSubmit ={ props.answerQuestion} >
-                    <textarea 
-                    rows="4" 
-                    placeholder='Enter your answer' 
-                    name={props.id}
-                    onChange ={e=>{
-                        props.setAnswer(e.target.value) 
-                    }}/>
+                        <textarea  rows="4" placeholder='Enter your answer' name={props.id}
+                        onChange ={e=>{
+                            props.setAnswer(e.target.value) 
+                        }}/>
+
                         <button title='Answer' className='answer-btn'>  <i className="material-icons">send</i></button>
                     </form>
                 </div> 

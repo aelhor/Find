@@ -3,7 +3,7 @@ import axios from "axios";
 import cookie from 'js-cookie'
 import Question from './Question'
 
-import {getAllQuestion, likeOrDislike, askQuestion} from '../functions/quesFunction' 
+import {getAllQuestion, likeOrDislike} from '../functions/quesFunction' 
 
 const User = (props)=> { 
     const [user, setUser] = useState({})

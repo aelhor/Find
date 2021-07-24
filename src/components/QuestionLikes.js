@@ -22,7 +22,6 @@ const getOneQues = async (quesId, setLikes, setQuestion) =>{
 const QuestionLikes = (props) => { 
     const [likes, setLikes] = useState([])
     const [ques, setQuestion] = useState({})
-    const [activeuser, setActiveUser] = useState({})
 
     const  [active_is_follower, set_Active_is_follower] = useState(false)
     const quesId =  props.match.params.quesId   
