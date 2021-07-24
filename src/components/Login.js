@@ -17,7 +17,7 @@ const Login = (props) => {
         try {  
             const res = await axios({
                 method : "POST",
-                url : 'https://chiedimi.herokuapp.com/login', 
+                url : 'https://asky-chidemi.herokuapp.com/login', 
                 data : {
                     email : email , 
                     password : password,
@@ -41,7 +41,7 @@ const Login = (props) => {
         try {
             const res = await axios({
                 method : 'POST', 
-                url : 'http://localhost:8000/facebookLogin', 
+                url : 'https://asky-chidemi.herokuapp.com/facebookLogin', 
                 data : {
                     accessToken : accessToken , 
                     userID : userID , 

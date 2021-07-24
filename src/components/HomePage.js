@@ -20,7 +20,7 @@ const HomePage = () => {
         try {
           const res = await axios({
             method: 'Patch',
-            url: 'https://chiedimi.herokuapp.com/questions/answer/' + quesId,
+            url: 'https://asky-chidemi.herokuapp.com/questions/answer/' + quesId,
             data: {
               answer : answer
             }, 
@@ -38,7 +38,7 @@ const HomePage = () => {
         try {
           const res = await axios({
             method :'delete',
-            url : 'https://chiedimi.herokuapp.com/questions/delete/' + quesId ,
+            url : 'https://asky-chidemi.herokuapp.com/questions/delete/' + quesId ,
             headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
           })
           console.log('question deleted : ', res)
@@ -82,11 +82,7 @@ const HomePage = () => {
                       /> 
                </div>
            })
-<<<<<<< HEAD
            : <div>No Questions Yet ... </div>
-=======
-           : <div>no questions yet ... </div>
->>>>>>> fblogin
          }
        </div>: 
        <p>Please <a href='/login'>Login</a> First ...</p>

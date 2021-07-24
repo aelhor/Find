@@ -12,7 +12,7 @@ const People = (props)=> {
             try {
                 let res = await axios({
                     method : 'GET', 
-                    url:'https://chiedimi.herokuapp.com/users',
+                    url:'https://asky-chidemi.herokuapp.com/users',
                     headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
                 })
                 console.log(res.data)

@@ -12,7 +12,7 @@ const Following = (props)=> {
             try {
                 let res = await axios({
                     method : 'GET', 
-                    url:'https://chiedimi.herokuapp.com/users/'+ activeUserId,
+                    url:'https://asky-chidemi.herokuapp.com/users/'+ activeUserId,
                     headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
                 })
                 console.log('Following : ',res.data.user.following); // array of objs

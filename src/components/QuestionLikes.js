@@ -7,7 +7,7 @@ const getOneQues = async (quesId, setLikes, setQuestion) =>{
     try {
         const resOneQues = await axios({
             method : 'GET', 
-            url: 'https://chiedimi.herokuapp.com/question/'+ quesId,
+            url: 'https://asky-chidemi.herokuapp.com/question/'+ quesId,
             headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
       })
         console.log('resOneQues : ', resOneQues)
@@ -40,7 +40,7 @@ const QuestionLikes = (props) => {
         ! active_is_follower ? 
             axios({
                 method: 'Post',
-                url: 'https://chiedimi.herokuapp.com/users/follow/' + activeUserId,
+                url: 'https://asky-chidemi.herokuapp.com/users/follow/' + activeUserId,
                 headers : {Authorization : `Bearer ${cookie.get('jwt')}` },
                 data: {
                     targetId : likes.userId ,// target User Id
@@ -59,7 +59,7 @@ const QuestionLikes = (props) => {
             // unFollow
             axios({
                 method: 'Post',
-                url: 'https://chiedimi.herokuapp.com/users/unfollow/' + activeUserId,
+                url: 'https://asky-chidemi.herokuapp.com/users/unfollow/' + activeUserId,
                 headers : {Authorization : `Bearer ${cookie.get('jwt')}` },
                 data: {
                     targetId : likes.userId ,// target User Id

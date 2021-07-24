@@ -8,7 +8,7 @@ export const getAllQuestion = async(userId,setQuestions)=> {
     try {
       const res = await axios({
         method : 'GET', 
-        url : 'https://chiedimi.herokuapp.com/questions/' + userId,
+        url : 'https://asky-chidemi.herokuapp.com/questions/' + userId,
         headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
       })
       console.log('fetching questions Response : ', res)
@@ -29,7 +29,7 @@ export const likeOrDislike = async (userId , quesId, i, setQuestions)=>{
       try{
         const res = await axios({
             method : 'PATCH', 
-            url: 'https://chiedimi.herokuapp.com/questions/dislike/'+quesId,
+            url: 'https://asky-chidemi.herokuapp.com/questions/dislike/'+quesId,
             data :{
                 activeUserId : activeUserId,
                 activeUserName : activeUserName
@@ -47,7 +47,7 @@ export const likeOrDislike = async (userId , quesId, i, setQuestions)=>{
       try{
         const res = await axios({
             method : 'PATCH', 
-            url: 'https://chiedimi.herokuapp.com/questions/like/'+quesId,
+            url: 'https://asky-chidemi.herokuapp.com/questions/like/'+quesId,
             data :{
                 activeUserId : activeUserId,
                 activeUserName : activeUserName

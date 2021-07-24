@@ -16,7 +16,6 @@ const Question =(props) => {
             <div className='question-answer'>{props.answer} </div>
             {loved = false}
             {
-<<<<<<< HEAD
             props.likes.forEach(liker => {
             if (liker.userId === activeUserId) {
                 // console.log(liker.userName +'likes the ques');
@@ -25,16 +24,6 @@ const Question =(props) => {
             else
                 loved = false
             })
-=======
-                props.likes.forEach(liker => {
-                if (liker.userId === activeUserId) {
-                    console.log(liker.userName +'likes the ques');
-                    loved = true
-                }
-                else
-                    loved = false
-                })
->>>>>>> fblogin
             }
             
             <div className='action_container'>
