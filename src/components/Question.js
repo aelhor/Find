@@ -16,14 +16,14 @@ const Question =(props) => {
             <div className='question-answer'>{props.answer} </div>
             {loved = false}
             {
-                props.likes.forEach(liker => {
-                if (liker.userId === activeUserId) {
-                    console.log(liker.userName +'likes the ques');
-                    loved = true
-                }
-                else
-                    loved = false
-                })
+            props.likes.forEach(liker => {
+              if (liker.userId === activeUserId) {
+                  // console.log(liker.userName +'likes the ques');
+                  loved = true
+              }
+              else
+                  loved = false
+              })
             }
             
             <div className='action_container'>
@@ -33,7 +33,7 @@ const Question =(props) => {
                 onClick={props.likeOrDislike} // 
                 className={loved ? `love-btn  love${props.i} loved` : `love-btn  love${props.i} not_loved`}
                 > 
-                    <i className="material-icons">favorite</i> 
+                <i className="material-icons">favorite</i> 
                 </div>
                 <div className='comment_btn'>
                 <i className="material-icons">comment</i> 
@@ -43,7 +43,7 @@ const Question =(props) => {
             <div className='actions-numbers'>
             <a href={'ques/' + props.id} >{parseInt(props.likes.length)} Likes </a> 
             <a href='#'>0 Reply</a>
-            </div>
+            </div> 
         </div>  : 
         // Not answerd Questions 
             props.page === 'homePage' ? 
