@@ -28,7 +28,7 @@ const Signup = (props) => {
             setLogedIn(true)
             cookie.set('jwt', res.data.newUser.signupToken)
             props.history.push('/') 
-            console.log(res)
+//             console.log(res)
         } catch (error) {
             console.log(error, 'user name or email already exist')
             setSignupError(true)
@@ -49,7 +49,7 @@ const Signup = (props) => {
                     picture : picture
                 }
             })
-            console.log('from server : ', res )
+//             console.log('from server : ', res )
             localStorage.setItem('userId', res.data.newUser.id)
             localStorage.setItem('activeUserName', res.data.newUser.userName)
             cookie.set('jwt', res.data.newUser.signupToken)
