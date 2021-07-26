@@ -3,8 +3,6 @@ import axios from 'axios'
 import cookie from 'js-cookie'
 import { userContext } from '../context'
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
-
-
 const Login = (props) => { 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -23,7 +21,7 @@ const Login = (props) => {
                     password : password,
                 },
             })
-//             console.log('res : ', res) 
+            //console.log('res : ', res) 
             localStorage.setItem('userId', res.data.id)
             localStorage.setItem('activeUserName', res.data.userName)
             cookie.set('jwt', res.data.token)
@@ -50,12 +48,12 @@ const Login = (props) => {
                     picture : picture
                 }
             })
-//             console.log('from server : ', res )
+            //console.log('from server : ', res )
             localStorage.setItem('userId', res.data.newUser.id)
             localStorage.setItem('activeUserName', res.data.newUser.userName)
             cookie.set('jwt', res.data.newUser.signupToken)
             setLogedIn(true)
-            props.history.push('/') 
+            // props.history.push('/') 
 
         } catch (error) {
             console.log('fbLogin Error : ', error)
