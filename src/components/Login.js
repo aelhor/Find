@@ -15,7 +15,7 @@ const Login = (props) => {
         try {  
             const res = await axios({
                 method : "POST",
-                url : 'http://localhost:8000/login', 
+                url : 'https://asky-chidemi.herokuapp.com/login', 
                 data : {
                     email : email , 
                     password : password,
@@ -40,7 +40,7 @@ const Login = (props) => {
         try {
             const res = await axios({
                 method : 'POST', 
-                url : 'http://localhost:8000/facebookLogin', 
+                url : 'https://asky-chidemi.herokuapp.com/facebookLogin', 
                 data : {
                     accessToken : accessToken , 
                     userID : userID , 
@@ -54,7 +54,7 @@ const Login = (props) => {
             localStorage.setItem('activeUserName', res.data.newUser.userName)
             cookie.set('jwt', res.data.newUser.signupToken)
             setLogedIn(true)
-            // props.history.push('/') 
+            props.history.push('/') 
 
         } catch (error) {
             console.log('fbLogin Error : ', error)
