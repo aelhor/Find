@@ -15,7 +15,7 @@ const Login = (props) => {
         try {  
             const res = await axios({
                 method : "POST",
-                url : 'https://asky-chidemi.herokuapp.com/login', 
+                url : 'http://localhost:8000/login', 
                 data : {
                     email : email , 
                     password : password,
@@ -28,8 +28,9 @@ const Login = (props) => {
             setLogedIn(true)
             setactiveUserId(res.data.id)
             props.history.push('/') 
+            
         } catch (error) {
-            console.log(error)
+            console.error(error.statusCode)
             setLoginError(error.message)
         }
     }
@@ -39,7 +40,7 @@ const Login = (props) => {
         try {
             const res = await axios({
                 method : 'POST', 
-                url : 'https://asky-chidemi.herokuapp.com/facebookLogin', 
+                url : 'http://localhost:8000/facebookLogin', 
                 data : {
                     accessToken : accessToken , 
                     userID : userID , 
@@ -48,7 +49,7 @@ const Login = (props) => {
                     picture : picture
                 }
             })
-            //console.log('from server : ', res )
+            console.log('from server : ', res )
             localStorage.setItem('userId', res.data.newUser.id)
             localStorage.setItem('activeUserName', res.data.newUser.userName)
             cookie.set('jwt', res.data.newUser.signupToken)
@@ -57,6 +58,7 @@ const Login = (props) => {
 
         } catch (error) {
             console.log('fbLogin Error : ', error)
+            setLogedIn(error)
         }
     }
 
@@ -102,9 +104,8 @@ const Login = (props) => {
                 </div>    
                 : <h3>You are loged in </h3>
                 }
-                
                 {
-                    loginError && <p style={{'color' : '#f00'}}> Invalid e-mail or password</p>
+                    loginError && <p style={{'color' : '#f00'}}> invalid email or password.Please try again </p>
                 }
             </div>
         </>

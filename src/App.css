@@ -130,6 +130,10 @@ nav{
 .material-icons{
   font-size: 1rem;
 }
+.fb_img { 
+  height: 8rem;
+  border-radius: 50%;
+}
 /* User Component  */
 .success {
   color: #000;

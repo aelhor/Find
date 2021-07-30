@@ -16,7 +16,7 @@ const Signup = (props) => {
         try { 
             const res = await axios({
                 method : "POST",
-                url : 'https://asky-chidemi.herokuapp.com/signup', 
+                url : 'http://localhost:8000/signup', 
                 data : {
                     email : email , 
                     password : password,
@@ -28,7 +28,7 @@ const Signup = (props) => {
             setLogedIn(true)
             cookie.set('jwt', res.data.newUser.signupToken)
             props.history.push('/') 
-//             console.log(res)
+            // console.log(res)
         } catch (error) {
             console.log(error, 'user name or email already exist')
             setSignupError(true)
@@ -40,7 +40,7 @@ const Signup = (props) => {
         try {
             const res = await axios({
                 method : 'POST', 
-                url : 'https://asky-chidemi.herokuapp.com/facebookLogin', 
+                url : 'http://localhost:8000/facebookLogin', 
                 data : {
                     accessToken : accessToken , 
                     userID : userID , 
@@ -54,7 +54,7 @@ const Signup = (props) => {
             localStorage.setItem('activeUserName', res.data.newUser.userName)
             cookie.set('jwt', res.data.newUser.signupToken)
             setLogedIn(true)
-            props.history.push('/') 
+            // props.history.push('/') 
 
         } catch (error) {
             console.log('fbLogin Error : ', error)
