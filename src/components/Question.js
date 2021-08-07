@@ -1,8 +1,10 @@
 import React from  'react'
 
 const Question =(props) => { 
-    let loved = false
     const activeUserId  = localStorage.getItem('userId')
+    const activeLikesQues = () =>{ 
+        return props.likes.some(({userId})=>userId === activeUserId) 
+    }
     return (
         props.answer.length > 0?
         <div className='question'>
@@ -14,24 +16,14 @@ const Question =(props) => {
             <br/><br/>
             <div className='question-body'>{props.body}</div>
             <div className='question-answer'>{props.answer} </div>
-            {loved = false}
-            {
-            props.likes.forEach(liker => {
-            if (liker.userId === activeUserId) {
-                // console.log(liker.userName +'likes the ques');
-                loved = true
-            }
-            else
-                loved = false
-            })
-            }
+            
             
             <div className='action_container'>
                 <div 
                 className={`love-btn  love${props.i}`}
-                title ={loved? 'unLike' : 'Like'}
+                title ={activeLikesQues()? 'unLike' : 'Like'}
                 onClick={props.likeOrDislike} // 
-                className={loved ? `love-btn  love${props.i} loved` : `love-btn  love${props.i} not_loved`}
+                className={activeLikesQues() ? `love-btn  love${props.i} loved` : `love-btn  love${props.i} not_loved`}
                 > 
                 <i className="material-icons">favorite</i> 
                 </div>
@@ -56,10 +48,13 @@ const Question =(props) => {
                     <br/>
                     <div className='question-body'>{props.body}</div>
                     <form className='ques_form' onSubmit ={ props.answerQuestion} >
-                        <textarea  rows="4" placeholder='Enter your answer' name={props.id}
+                        <textarea  rows="4" placeholder='Enter your answer' name={props.id} required
+                        
                         onChange ={e=>{
                             props.setAnswer(e.target.value) 
-                        }}/>
+                        }}
+                        
+                        />
 
                         <button title='Answer' className='answer-btn'>  <i className="material-icons">send</i></button>
                     </form>

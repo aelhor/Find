@@ -36,6 +36,7 @@ export const likeOrDislike = async (userId , quesId, i, setQuestions)=>{
             },
             headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
         })
+        // too expensive 
         getAllQuestion(userId, setQuestions )
 
       }

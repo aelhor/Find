@@ -163,9 +163,9 @@ nav{
   margin: .5rem 0;
 }
 .follow-btn { 
-  background: #F44336;
-  color: #fff;
-  border: none;
+  background: none;
+    color: #ffeb3b;
+    border: 1px solid;
 }
 .love-btn{
   /* display: flex; */
@@ -186,9 +186,8 @@ nav{
 
 .true-follow{
   background: none;
-  color: #fff;
-  margin-bottom: .6rem;
-  box-shadow: 2px 2px 0px 0px #8a8a8a;
+  border: 1px solid;
+  color: #848484;
 }
 .question-body { 
   font-size: 1.2rem;
