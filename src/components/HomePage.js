@@ -22,7 +22,7 @@ const HomePage = () => {
       try {
         const res = await axios({
           method: 'Patch',
-          url: 'http://localhost:8000/questions/answer/' + quesId,
+          url: 'https://asky-chidemi.herokuapp.com/questions/answer/' + quesId,
           data: {
             answer : answer
           }, 
@@ -40,7 +40,7 @@ const HomePage = () => {
       try {
         const res = await axios({
           method :'delete',
-          url : 'http://localhost:8000/questions/delete/' + quesId ,
+          url : 'https://asky-chidemi.herokuapp.com/questions/delete/' + quesId ,
           headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
         })
         console.log('question deleted : ', res)
@@ -56,7 +56,7 @@ const HomePage = () => {
     try {
         let res = await axios({
             method : 'GET',
-            url : 'http://localhost:8000/users/' + userId,
+            url : 'https://asky-chidemi.herokuapp.com/users/' + userId,
             headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
         })
         console.log('user  :', res.data.user);
