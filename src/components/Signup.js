@@ -8,7 +8,7 @@ const Signup = (props) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [userName, setUserName] = useState('')
-    const [signupError, setSignupError] = useState(false)
+    const [signupError, setSignupError] = useState('')
     const {logedIn, setLogedIn} = useContext(userContext)
    
     const signUp = async(e)=>  {
@@ -31,7 +31,7 @@ const Signup = (props) => {
             // console.log(res)
         } catch (error) {
             console.log(error, 'user name or email already exist')
-            setSignupError(true)
+            setSignupError(error)
         }
     }
     const responseFacebook = async(response) => {
@@ -58,11 +58,14 @@ const Signup = (props) => {
 
         } catch (error) {
             console.log('fbLogin Error : ', error)
+            setSignupError(error)
+
         }
     }
 
     return(
         <div className='form-container'>  
+            <h6 className = 'error hidden_err' >somthing went wrong. can't delete question</h6>
             {
             !logedIn ? 
             <div>

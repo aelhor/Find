@@ -30,7 +30,7 @@ const Login = (props) => {
             props.history.push('/') 
             
         } catch (error) {
-            console.error(error.statusCode)
+            console.error(error)
             setLoginError(error.message)
         }
     }

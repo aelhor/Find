@@ -78,11 +78,11 @@ const QuestionLikes = (props) => {
 
 
     return <div >
+        {console.log(quesId)}
             <div className='question'>
                 <small className ='ques-time'>{
                     new Date(ques.createdAt).toUTCString().slice(4, 22)
                 } </small>
-                {/* <button title ='Delete' onClick={()=>deleteQuestion(ques._id)} className='delete-btn'> <i className="material-icons">delete</i> </button> */}
                 <br/><br/>
                 <div className='question-body'>{ques.body}</div>
                 <div className='question-answer'>{ques.answer} </div>

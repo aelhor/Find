@@ -33,7 +33,7 @@ const Question =(props) => {
             </div>
             
             <div className='actions-numbers'>
-            <a href={'ques/' + props.id} >{parseInt(props.likes.length)} Likes </a> 
+            <a href={'http://localhost:3000/ques/' + props.id} >{parseInt(props.likes.length)} Likes </a> 
             <a href='#'>0 Reply</a>
             </div> 
         </div>  : 

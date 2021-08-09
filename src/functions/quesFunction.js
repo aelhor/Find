@@ -4,7 +4,7 @@ const activeUserName = localStorage.getItem('activeUserName')
 const activeUserId  = localStorage.getItem('userId')
 
 // Homepage & user 
-export const getAllQuestion = async(userId,setQuestions)=> { 
+export const getAllQuestion = async(userId,setQuestions , setQuestionsError)=> { 
     try {
       const res = await axios({
         method : 'GET', 
@@ -17,6 +17,7 @@ export const getAllQuestion = async(userId,setQuestions)=> {
     } 
     catch (error) {
       console.log('fetching questions Error : ',  error);
+      setQuestionsError(error)
     }
 } 
 export const likeOrDislike = async (userId , quesId, i, setQuestions)=>{

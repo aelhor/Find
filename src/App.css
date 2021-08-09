@@ -65,6 +65,31 @@ a:hover{
   color: #585858;
   text-decoration: line-through;
 }
+.error,.sucess_msg {
+  padding: 1rem;
+  border: .1rem solid #ffffff;
+  color: #9e9e9e;
+}
+.hidden_err , .sucess_msg { 
+  display: none;
+  position: fixed;
+  top: 3rem;
+}
+.error { 
+  background: #852d2d;
+  color: #fff;
+}
+.sucess_msg { 
+  width: 10rem;
+  background: #2d8530;
+  color: #fff;
+}
+.loading {
+  margin: auto;
+  width: 3rem;
+}
+
+
 /* not used */
 .ques_datails_container { 
   display: none;
@@ -171,7 +196,6 @@ nav{
   /* display: flex; */
   cursor: pointer;
 }
-
 .loved {
   color: #fd3c2e;
 }
@@ -183,7 +207,6 @@ nav{
 .likes_number:hover{ 
   text-decoration: underline;
 }
-
 .true-follow{
   background: none;
   border: 1px solid;
@@ -223,34 +246,28 @@ textarea {
   margin: 1rem;
 }
 
-/* Friends component */
+/* people component */
 .user-link{
   background: none;
-  color:#3F51B5
+  color:#3F51B5; 
+  padding-left:.3rem ;
 }
 .friends-container{
-  /* margin: 1rem;
-  background: beige;
-  padding: 1rem;
-  border: 1px solid #000;
-  text-align: left; */
-
-      /* margin: 1rem; */
-    /* background: beige; */
-    padding: 1rem;
-    border: 1px solid #FFEB3B;
-    text-align: left;
-
+  /* border: 1px solid #FFEB3B; */
+  text-align: left;
 }
-li{
-  list-style-type: circle;
-
+.friends-container ul { 
+  padding: 0;
+}
+.user_people{
+  border-bottom:1px solid #666666;
+  padding: .8rem;
+  list-style: none;
 }
 /* QuestionLikes component */
 
 .ques_likes_container { 
   text-align: left;
-  height: 25rem;
   padding: .4rem;
   border: 1px solid;
 }
