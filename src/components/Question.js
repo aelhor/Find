@@ -33,7 +33,7 @@ const Question =(props) => {
             </div>
             
             <div className='actions-numbers'>
-            <a href={'https://asky-chidemi.herokuapp.com/ques/' + props.id} >{parseInt(props.likes.length)} Likes </a> 
+            <a href={'https://gossip-24-7.netlify.app/ques/' + props.id} >{parseInt(props.likes.length)} Likes </a> 
             <a href='#'>0 Reply</a>
             </div> 
         </div>  : 

@@ -23,7 +23,7 @@ const HomePage = () => {
       try {
         const res = await axios({
           method: 'Patch',
-          url: 'https://asky-chidemi.herokuapp.com/questions/answer/' + quesId,
+          url: 'https://gossip-24-7.netlify.app//questions/answer/' + quesId,
           data: {
             answer : answer
           }, 
@@ -41,7 +41,7 @@ const HomePage = () => {
       try {
         const res = await axios({
           method :'delete',
-          url : 'https://asky-chidemi.herokuapp.com/questions/delete/' + quesId ,
+          url : 'https://gossip-24-7.netlify.app//questions/delete/' + quesId ,
           headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
         })
         console.log('question deleted : ', res)
@@ -63,10 +63,10 @@ const HomePage = () => {
     try {
         let res = await axios({
             method : 'GET',
-            url : 'https://asky-chidemi.herokuapp.com/users/' + userId,
+            url : 'https://gossip-24-7.netlify.app//users/' + userId,
             headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
         })
-        console.log('user  :', res.data.user);
+        console.log('user  :', res.data.user); // undefined 
         setActiveUser(res.data.user)
     } catch (error) {
         console.log('userInfo Error :',error);
@@ -88,7 +88,7 @@ const HomePage = () => {
       {
         activeUser&& activeUser.fbPicture == 'none' || !activeUser.fbPicture ?  <svg alt='no img ' style={{height : '4rem'}} xmlns="http://www.w3.org/2000/svg"  aria-hidden="true" focusable="false" data-prefix="far" data-icon="user" className="svg-inline--fa fa-user fa-w-14" role="img" viewBox="0 0 448 512"><path fill="currentColor" d="M313.6 304c-28.7 0-42.5 16-89.6 16-47.1 0-60.8-16-89.6-16C60.2 304 0 364.2 0 438.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-25.6c0-74.2-60.2-134.4-134.4-134.4zM400 464H48v-25.6c0-47.6 38.8-86.4 86.4-86.4 14.6 0 38.3 16 89.6 16 51.7 0 74.9-16 89.6-16 47.6 0 86.4 38.8 86.4 86.4V464zM224 288c79.5 0 144-64.5 144-144S303.5 0 224 0 80 64.5 80 144s64.5 144 144 144zm0-240c52.9 0 96 43.1 96 96s-43.1 96-96 96-96-43.1-96-96 43.1-96 96-96z"/></svg>
         : 
-        <img alt='FB Img' className='fb_img' src= { activeUser.fbPicture}/>
+        <img alt='FB Img' className='fb_img' src= { activeUser? '#' :activeUser.fbPicture}/>
         
       }
        {logedIn ?
