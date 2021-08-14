@@ -24,7 +24,7 @@ const HomePage = () => {
       try {
         const res = await axios({
           method: 'Patch',
-          url: 'https://gossip-24-7.netlify.app//questions/answer/' + quesId,
+          url: 'https://asky-chidemi.herokuapp.com//questions/answer/' + quesId,
           data: {
             answer : answer
           }, 
@@ -42,7 +42,7 @@ const HomePage = () => {
       try {
         const res = await axios({
           method :'delete',
-          url : 'https://gossip-24-7.netlify.app//questions/delete/' + quesId ,
+          url : 'https://asky-chidemi.herokuapp.com//questions/delete/' + quesId ,
           headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
         })
         console.log('question deleted : ', res)
@@ -64,7 +64,7 @@ const HomePage = () => {
     try {
         let res = await axios({
             method : 'GET',
-            url : 'https://gossip-24-7.netlify.app/users/' + userId,
+            url : 'https://asky-chidemi.herokuapp.com/users/' + userId,
             headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
         })
         console.log('user  :', res.data.user); // undefined 

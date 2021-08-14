@@ -21,7 +21,7 @@ const User = (props)=> {
             try {
                 let res = await axios({
                     method : 'GET',
-                    url : 'https://gossip-24-7.netlify.app//users/' + userId,
+                    url : 'https://asky-chidemi.herokuapp.com/users/' + userId,
                     headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
                 })
                 console.log('user  :', res.data.user);
@@ -44,7 +44,7 @@ const User = (props)=> {
         e.preventDefault()
         axios({
             method: 'Post',
-            url: 'https://gossip-24-7.netlify.app//questions/ask/' + userId,
+            url: 'https://asky-chidemi.herokuapp.com/questions/ask/' + userId,
             headers : {Authorization : `Bearer ${cookie.get('jwt')}` },
             data: {
               body : quesBody
@@ -71,7 +71,7 @@ const User = (props)=> {
         ! active_is_follower ? 
             axios({
                 method: 'Post',
-                url: 'https://gossip-24-7.netlify.app//users/follow/' + activeUserId,
+                url: 'https://asky-chidemi.herokuapp.com/users/follow/' + activeUserId,
                 headers : {Authorization : `Bearer ${cookie.get('jwt')}` },
                 data: {
                     targetId : userId ,// target User Id
@@ -90,7 +90,7 @@ const User = (props)=> {
             // unFollow
             axios({
                 method: 'Post',
-                url: 'https://gossip-24-7.netlify.app//users/unfollow/' + activeUserId,
+                url: 'https://asky-chidemi.herokuapp.com/users/unfollow/' + activeUserId,
                 headers : {Authorization : `Bearer ${cookie.get('jwt')}` },
                 data: {
                     targetId : userId ,// target User Id
