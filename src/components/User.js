@@ -21,17 +21,17 @@ const User = (props)=> {
             try {
                 let res = await axios({
                     method : 'GET',
-                    url : 'http://localhost:8000/users/' + userId,
+                    url : 'https://asky-chidemi.herokuapp.com/users/' + userId,
                     headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
                 })
-                console.log('user  :', res.data.user);
+                // console.log('user  :', res.data.user);
                 setUser(res.data.user)
             // check if acive user is already a follower                 
                 if (res.data.user.followers.some(({userId})=>userId === activeUserId) ) {
                     set_Active_is_follower(true)
                 }
             } catch (error) {
-                console.log('user err :', error);
+                // console.log('user err :', error);
             }
         }
         getUserInfo()
@@ -44,14 +44,14 @@ const User = (props)=> {
         e.preventDefault()
         axios({
             method: 'Post',
-            url: 'http://localhost:8000/questions/ask/' + userId,
+            url: 'https://asky-chidemi.herokuapp.com/questions/ask/' + userId,
             headers : {Authorization : `Bearer ${cookie.get('jwt')}` },
             data: {
               body : quesBody
             }, 
           })
           .then(res=> {             
-            console.log(res)
+            // console.log(res)
             // clear the input 
             setQuesBody('')
             // display a sucess msg 
@@ -62,7 +62,7 @@ const User = (props)=> {
             },4000)
           })
           .catch(error=> {
-            console.log(error);
+            // console.log(error);
           })
     }
 
@@ -71,7 +71,7 @@ const User = (props)=> {
         ! active_is_follower ? 
             axios({
                 method: 'Post',
-                url: 'http://localhost:8000/users/follow/' + activeUserId,
+                url: 'https://asky-chidemi.herokuapp.com/users/follow/' + activeUserId,
                 headers : {Authorization : `Bearer ${cookie.get('jwt')}` },
                 data: {
                     targetId : userId ,// target User Id
@@ -80,17 +80,16 @@ const User = (props)=> {
                 }, 
             })
             .then(res=> { 
-                console.log('Follow response: ', res);
+                // console.log('Follow response: ', res);
                 set_Active_is_follower(true)
-                // window.location.reload()
             })
             .catch(error=> {
-                console.log(error);
+                // console.log(error);
             }) :
             // unFollow
             axios({
                 method: 'Post',
-                url: 'http://localhost:8000/users/unfollow/' + activeUserId,
+                url: 'https://asky-chidemi.herokuapp.com/users/unfollow/' + activeUserId,
                 headers : {Authorization : `Bearer ${cookie.get('jwt')}` },
                 data: {
                     targetId : userId ,// target User Id
@@ -99,11 +98,11 @@ const User = (props)=> {
                 }, 
             })
             .then(res=> { 
-                console.log('Follow response: ', res);
+                // console.log('Follow response: ', res);
                 set_Active_is_follower(false)
             })
             .catch(error=> {
-                console.log(error);
+                // console.log(error);
             })
     }
   

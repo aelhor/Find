@@ -23,17 +23,17 @@ const HomePage = () => {
       try {
         const res = await axios({
           method: 'Patch',
-          url: 'http://localhost:8000/questions/answer/' + quesId,
+          url: 'https://asky-chidemi.herokuapp.com/questions/answer/' + quesId,
           data: {
             answer : answer
           }, 
           headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
         })
-        console.log(res);
+        // console.log(res);
         getAllQuestion(activeUserId,setQuestions)
       } 
       catch (error) {
-        console.log(error);
+        // console.log(error);
       }
   }
   const deleteQuestion = async(quesId)=>{
@@ -41,15 +41,15 @@ const HomePage = () => {
       try {
         const res = await axios({
           method :'delete',
-          url : 'http://localhost:8000/questions/delete/' + quesId ,
+          url : 'https://asky-chidemi.herokuapp.com/questions/delete/' + quesId ,
           headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
         })
-        console.log('question deleted : ', res)
+        // console.log('question deleted : ', res)
         const newQuestions =  questions.filter(ques => ques._id !== quesId)
         setQuestions(newQuestions)
       } 
       catch (error) {
-        console.log('delete questions Error : ',  error);
+        // console.log('delete questions Error : ',  error);
         // show delete ques error message 
         const err = document.querySelector('.hidden_err')
         err.style.display = 'block'
@@ -63,13 +63,13 @@ const HomePage = () => {
     try {
         let res = await axios({
             method : 'GET',
-            url : 'http://localhost:8000/users/' + userId,
+            url : 'https://asky-chidemi.herokuapp.com/users/' + userId,
             headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
         })
-        console.log('user  :', res.data.user); // undefined 
+        // console.log('user  :', res.data.user); // undefined 
         setActiveUser(res.data.user)
     } catch (error) {
-        console.log('userInfo Error :',error);
+        // console.log('userInfo Error :',error);
         setUserError(true)
     }
   }
@@ -84,7 +84,7 @@ const HomePage = () => {
         window.location.replace("/login");
   }, [activeUserId])
   
-  return <div className='homepage-container'>{console.log('active user : ', activeUser)}
+  return <div className='homepage-container'>
       <h6 className = 'error hidden_err' >somthing went wrong. can't delete question</h6>
       {activeUser &&!userError ? 
         <div>
