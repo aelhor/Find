@@ -21,7 +21,7 @@ const User = (props)=> {
             try {
                 let res = await axios({
                     method : 'GET',
-                    url : 'https://gossip-24-7.netlify.app//users/' + userId,
+                    url : 'http://localhost:8000/users/' + userId,
                     headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
                 })
                 console.log('user  :', res.data.user);
@@ -31,7 +31,7 @@ const User = (props)=> {
                     set_Active_is_follower(true)
                 }
             } catch (error) {
-                console.log(error);
+                console.log('user err :', error);
             }
         }
         getUserInfo()
@@ -44,7 +44,7 @@ const User = (props)=> {
         e.preventDefault()
         axios({
             method: 'Post',
-            url: 'https://gossip-24-7.netlify.app//questions/ask/' + userId,
+            url: 'http://localhost:8000/questions/ask/' + userId,
             headers : {Authorization : `Bearer ${cookie.get('jwt')}` },
             data: {
               body : quesBody
@@ -71,7 +71,7 @@ const User = (props)=> {
         ! active_is_follower ? 
             axios({
                 method: 'Post',
-                url: 'https://gossip-24-7.netlify.app//users/follow/' + activeUserId,
+                url: 'http://localhost:8000/users/follow/' + activeUserId,
                 headers : {Authorization : `Bearer ${cookie.get('jwt')}` },
                 data: {
                     targetId : userId ,// target User Id
@@ -90,7 +90,7 @@ const User = (props)=> {
             // unFollow
             axios({
                 method: 'Post',
-                url: 'https://gossip-24-7.netlify.app//users/unfollow/' + activeUserId,
+                url: 'http://localhost:8000/users/unfollow/' + activeUserId,
                 headers : {Authorization : `Bearer ${cookie.get('jwt')}` },
                 data: {
                     targetId : userId ,// target User Id
@@ -108,18 +108,23 @@ const User = (props)=> {
     }
   
     return<>
+        {
+         user ? 
         <div>
             <p className = 'sucess_msg' >question sent</p> 
             {
-               user&& user.fbPicture == 'none' || !user.fbPicture ?  <svg style={{height : '4rem'}} xmlns="http://www.w3.org/2000/svg"  aria-hidden="true" focusable="false" data-prefix="far" data-icon="user" className="svg-inline--fa fa-user fa-w-14" role="img" viewBox="0 0 448 512"><path fill="currentColor" d="M313.6 304c-28.7 0-42.5 16-89.6 16-47.1 0-60.8-16-89.6-16C60.2 304 0 364.2 0 438.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-25.6c0-74.2-60.2-134.4-134.4-134.4zM400 464H48v-25.6c0-47.6 38.8-86.4 86.4-86.4 14.6 0 38.3 16 89.6 16 51.7 0 74.9-16 89.6-16 47.6 0 86.4 38.8 86.4 86.4V464zM224 288c79.5 0 144-64.5 144-144S303.5 0 224 0 80 64.5 80 144s64.5 144 144 144zm0-240c52.9 0 96 43.1 96 96s-43.1 96-96 96-96-43.1-96-96 43.1-96 96-96z"/></svg>
-                : 
+               user && user.fbPicture == 'none' || !user.fbPicture ?  <svg style={{height : '4rem'}} xmlns="http://www.w3.org/2000/svg"  aria-hidden="true" focusable="false" data-prefix="far" data-icon="user" className="svg-inline--fa fa-user fa-w-14" role="img" viewBox="0 0 448 512"><path fill="currentColor" d="M313.6 304c-28.7 0-42.5 16-89.6 16-47.1 0-60.8-16-89.6-16C60.2 304 0 364.2 0 438.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-25.6c0-74.2-60.2-134.4-134.4-134.4zM400 464H48v-25.6c0-47.6 38.8-86.4 86.4-86.4 14.6 0 38.3 16 89.6 16 51.7 0 74.9-16 89.6-16 47.6 0 86.4 38.8 86.4 86.4V464zM224 288c79.5 0 144-64.5 144-144S303.5 0 224 0 80 64.5 80 144s64.5 144 144 144zm0-240c52.9 0 96 43.1 96 96s-43.1 96-96 96-96-43.1-96-96 43.1-96 96-96z"/></svg>
+                :
                 <img alt='FB Img' className='fb_img' src= { user.fbPicture}/>
             }
+
             <h1> {user ?user.userName : 'Null' }  </h1>
             <button  onClick={()=>followOrunFollow()} className ={active_is_follower ? 'true-follow':'follow-btn'}>
              { active_is_follower ? 'Following': 'FOLLOW'}
             </button>
-        </div>
+        </div> 
+        : <div className='error'>can't find user. try again </div>
+        }
        <br></br>
        <form className='ques_form' onSubmit = {(e)=>askQuestion(userId, e)}>
             < textarea
