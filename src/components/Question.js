@@ -38,13 +38,12 @@ const Question =(props) => {
             </div> 
         </div>  : 
         // Not answerd Questions 
-            props.page === 'homePage' ? 
+            props.page === 'unanswer_Questions_homePage' ? 
                 <div className='question'>
                     <small className ='ques-time'>{new Date(props.createdAt).toUTCString().slice(4, 22) }</small>             
-                    {  
-                       props.page === 'homePage' &&         
-                        <button title ='Delete' onClick={props.deleteQuestion} className='delete-btn'> <i className="material-icons">delete</i> </button>
-                    }                    
+                           
+                    <button title ='Delete' onClick={props.deleteQuestion} className='delete-btn'> <i className="material-icons">delete</i> </button>
+                                       
                     <br/>
                     <div className='question-body'>{props.body}</div>
                     <form className='ques_form' onSubmit ={ props.answerQuestion} >

@@ -10,85 +10,6 @@ body{
   background-color: #000;
 }
 
-/* common */
-.gossip{ 
-  color: #FFF;
-  float: left;
-}
-.gossip:hover{
-  text-decoration: none
-}
-button{
-  padding: 0.3rem 1.3rem;
-  border: none;
-  font-size: 1rem;
-  margin: .2rem;
-  cursor: pointer;
-}
-input[type=text]{
-  padding: 0.3rem 1rem ;
-  /* font-size: 0.8rem; */
-  margin: .5rem;
-}
-input[type=email]{
-  padding: 0.3rem 1rem ;
-  /* font-size: 0.8rem; */
-  margin: .5rem;
-}
-input[type=password]{
-  padding: 0.3rem 1rem ;
-  /* font-size: 0.8rem; */
-  margin: .5rem;
-}
-a { 
-  text-decoration: none;
-  color: #3F51B5;
-}
-a:hover{
-  text-decoration: underline;
-}
-.ques-time{  
-  color: #9E9E9E;
-  float: left;
-}
-.action_container , .actions-numbers{ 
-  display:flex;
-  justify-content: space-evenly;
-}
-.actions-numbers a { 
-  color: #9e9e9e;
-}
-.like_container { 
-  display: flex;
-}
-.comment_container { 
-  color: #585858;
-  text-decoration: line-through;
-}
-.error,.sucess_msg {
-  padding: 1rem;
-  border: .1rem solid #ffffff;
-  color: #9e9e9e;
-}
-.hidden_err , .sucess_msg { 
-  display: none;
-  position: fixed;
-  top: 3rem;
-}
-.error { 
-  background: #852d2d;
-  color: #fff;
-}
-.sucess_msg { 
-  width: 10rem;
-  background: #2d8530;
-  color: #fff;
-}
-.loading {
-  margin: auto;
-  width: 3rem;
-}
-
 
 /* not used */
 .ques_datails_container { 
@@ -153,12 +74,16 @@ nav{
   float :right
 }
 .material-icons{
-  font-size: 1rem;
+  font-size: 20px;
 }
 .fb_img { 
   height: 8rem;
   border-radius: 50%;
 }
+nav a { 
+  color: blue;
+}
+
 /* User Component  */
 .success {
   color: #000;
@@ -183,8 +108,6 @@ nav{
    background: #111111;
    overflow: auto;
   padding: .5rem;
-  /* box-shadow: 0px 0px 10px #4CAF50; */
-  border: .01rem solid #585858;
   margin: .5rem 0;
 }
 .follow-btn { 
@@ -195,6 +118,7 @@ nav{
 .love-btn{
   /* display: flex; */
   cursor: pointer;
+  font-size: 20px;
 }
 .loved {
   color: #fd3c2e;
@@ -314,3 +238,83 @@ label {
   color: #fff;
   opacity: 0.8;
 }
+
+/* common */
+.gossip{ 
+  color: #FFF;
+  float: left;
+}
+.gossip:hover{
+  text-decoration: none
+}
+button{
+  padding: 0.3rem 1.3rem;
+  border: none;
+  font-size: 1rem;
+  margin: .2rem;
+  cursor: pointer;
+}
+input[type=text]{
+  padding: 0.3rem 1rem ;
+  /* font-size: 0.8rem; */
+  margin: .5rem;
+}
+input[type=email]{
+  padding: 0.3rem 1rem ;
+  /* font-size: 0.8rem; */
+  margin: .5rem;
+}
+input[type=password]{
+  padding: 0.3rem 1rem ;
+  /* font-size: 0.8rem; */
+  margin: .5rem;
+}
+a { 
+  text-decoration: none;
+  color: #3F51B5;
+}
+a:hover{
+  text-decoration: underline;
+}
+.ques-time{  
+  color: #9E9E9E;
+  float: left;
+}
+.action_container , .actions-numbers{ 
+  display:flex;
+  justify-content: space-evenly;
+}
+.actions-numbers a { 
+  color: #9e9e9e;
+}
+.like_container { 
+  display: flex;
+}
+.comment_container { 
+  color: #585858;
+  text-decoration: line-through;
+}
+.error,.sucess_msg {
+  padding: 1rem;
+  border: .1rem solid #ffffff;
+  color: #9e9e9e;
+}
+.hidden_err , .sucess_msg { 
+  display: none;
+  position: fixed;
+  top: 3rem;
+}
+.error { 
+  background: #852d2d;
+  color: #fff;
+}
+.sucess_msg { 
+  width: 10rem;
+  background: #2d8530;
+  color: #fff;
+}
+.loading {
+  margin: auto;
+  width: 3rem;
+}
+
