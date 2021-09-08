@@ -140,11 +140,15 @@ nav{
 }
 .search_suggestions { 
   z-index: 100;
-  background: #222;
-  border: 1px solid;
-  padding: 1rem;
+  padding: 1rem 0;
   margin: 0.5rem 0;
   display: none;
+}
+.single_suggestion { 
+  padding: .5rem;
+}
+.single_suggestion:hover { 
+  background: #222;
 }
 .suggestions_img_container { 
   display: inline;
