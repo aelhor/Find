@@ -16,15 +16,15 @@ const Nav = (props) => {
                 <a href='/following' className = 'nav-link'  >Following</a>
                 <a href='/people' className = 'nav-link'  >People</a>
                 <a href ='/login'>
-                <button className='logout-btn'
-                    onClick={()=>{ 
-                        if(logOutConfirm()) {
-                            localStorage.clear() 
-                            cookie.remove('jwt')
-                        }                        
-                    }}
-                >Log Out</button>  
-                </a>                 
+                    <button className='logout-btn'
+                        onClick={()=>{ 
+                            if(logOutConfirm()) {
+                                localStorage.clear() 
+                                cookie.remove('jwt')
+                            }                        
+                        }}
+                    >Log Out</button>  
+                </a>  
             </nav> : 
             <nav>
                 <a href='/' className = 'nav-link'>Home </a>

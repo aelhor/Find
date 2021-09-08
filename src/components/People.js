@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import cookie from 'js-cookie'
+import Search from './Search'
 
 
 const People = (props)=> { 
@@ -31,6 +32,7 @@ const People = (props)=> {
     }, [])
    
     return<div className='friends-container'>{console.log('usersError: ',usersError)}
+        <Search />    <br/>     
         {!usersError ?
             loaded?
                 <ul>
