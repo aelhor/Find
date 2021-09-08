@@ -1,0 +1,12 @@
+Thursday 9/9
+
+
+[ ] fix search component style 
+
+[ ] email verification 
+
+[ ] 1st video of CMU db  
+
+[ ] 2 more videos of a advanced Node [Redis]
+
+
