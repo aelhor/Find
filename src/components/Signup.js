@@ -16,19 +16,20 @@ const Signup = (props) => {
         try { 
             const res = await axios({
                 method : "POST",
-                url : 'https://asky-chidemi.herokuapp.com/signup', 
+                url : 'http://localhost:8000/signup', 
                 data : {
                     email : email , 
                     password : password,
                     userName : userName
                 }
             })
-            localStorage.setItem('userId', res.data.newUser.id)
-            localStorage.setItem('activeUserName', res.data.newUser.userName)//userName is not in the response
+            console.log(res)
+            localStorage.setItem('userId', res.data.id)
+            localStorage.setItem('activeUserName', res.data.userName)//userName is not in the response
             setLogedIn(true)
-            cookie.set('jwt', res.data.newUser.signupToken)
+            cookie.set('jwt', res.data.token)
             props.history.push('/') 
-            // console.log(res)
+            console.log(res)
         } catch (error) {
             console.log(error, 'user name or email already exist')
             setSignupError(error)
@@ -52,7 +53,7 @@ const Signup = (props) => {
 //             console.log('from server : ', res )
             localStorage.setItem('userId', res.data.newUser.id)
             localStorage.setItem('activeUserName', res.data.newUser.userName)
-            cookie.set('jwt', res.data.newUser.signupToken)
+            cookie.set('jwt', res.data.newUser.signupToken) //signupToken => token
             setLogedIn(true)
             props.history.push('/') 
 
@@ -100,10 +101,10 @@ const Signup = (props) => {
 
                         onChange = {e=> setPassword(e.target.value)}
                         /><br/>
-                    <button>Sign Up</button>
-                    <small className='message'>{signupError ? 'username or email already exist..let\'s try anain' : null} </small>
-                </form>    
-                <p>already have account? <a href='/login'> Log In </a></p>
+                    <button className='register_btn'>Sign Up</button>
+                    <br/>
+                </form>  
+                
                 <FacebookLogin
                     appId="5681515568585713"
                     // autoLoad={true}
@@ -113,6 +114,9 @@ const Signup = (props) => {
                         <button className="fb_btn" onClick={renderProps.onClick}>Login With Facebook</button>
                       )}
                     />
+                <p>already have account? <a href='/login'> Log In </a></p>
+                <p className='signup_error'>{signupError ? 'username or email already exist..let\'s try anain' : null} </p>
+
             </div>
             :<h3>you are loged In </h3>
             }

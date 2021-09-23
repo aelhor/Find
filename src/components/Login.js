@@ -88,7 +88,7 @@ const Login = (props) => {
                                 placeholder='Enter your password'
                                 onChange = {e=> setPassword(e.target.value)}
                                 /><br/>
-                            <button>Log In</button>
+                            <button className='register_btn'>Log In</button>
                     </form> 
                         <FacebookLogin
                         appId="5681515568585713"
@@ -105,7 +105,7 @@ const Login = (props) => {
                 : <h3>You are loged in </h3>
                 }
                 {
-                    loginError && <p style={{'color' : '#f00'}}> invalid email or password.Please try again </p>
+                    loginError && <p className='signup_error'> invalid email or password.Please try again </p>
                 }
             </div>
         </>

@@ -17,11 +17,8 @@ const HomePage = () => {
   const [userError , setUserError] = useState(false)
   const [userQuestionsErr , setUserQuestionsErr] = useState('')
   const [answer, setAnswer] = useState('')
-
   const [activeTab , setActiveTab] = useState(0)
-  const [newQuestions , setNewQuestions] = useState([])
   
-
   const answerQuestion = async (quesId, e)=> { 
     // send a patch req to the server to answer this ques 
     e.preventDefault()
@@ -34,11 +31,11 @@ const HomePage = () => {
           }, 
           headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
         })
-        // console.log(res);
+        // // console.log(res);
         getAllQuestion(activeUserId,setQuestions)
       } 
       catch (error) {
-        // console.log(error);
+        // // console.log(error);
       }
   }
   const deleteQuestion = async(quesId)=>{
@@ -49,12 +46,12 @@ const HomePage = () => {
           url : 'https://asky-chidemi.herokuapp.com/questions/delete/' + quesId ,
           headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
         })
-        // console.log('question deleted : ', res)
+        // // console.log('question deleted : ', res)
         const newQuestions =  questions.filter(ques => ques._id !== quesId)
         setQuestions(newQuestions)
       } 
       catch (error) {
-        // console.log('delete questions Error : ',  error);
+        // // console.log('delete questions Error : ',  error);
         // show delete ques error message 
         const err = document.querySelector('.hidden_err')
         err.style.display = 'block'
@@ -71,7 +68,7 @@ const HomePage = () => {
             url : 'https://asky-chidemi.herokuapp.com/users/' + userId,
             headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
         })
-        // console.log('user  :', res.data.user); // undefined 
+        console.log('user  :', res.data.user); 
         setActiveUser(res.data.user)
     } catch (error) {
         // console.log('userInfo Error :',error);
@@ -79,19 +76,36 @@ const HomePage = () => {
     }
   }
 
+  const resendVerificationEmail = async()=>{
+    try {
+        let res = await axios({
+            method : 'GET',
+            url : 'http://localhost:8000/resendemail?email='+activeUser.email,
+            // body : { email: activeUser.email},
+            headers : {Authorization : `Bearer ${cookie.get('jwt')}` }
+        })
+        console.log('resend email  :', res); 
+    }catch (error) {
+        console.log('userInfo Error :',error);
+    }
+    // console.log(activeUser.email)
+  }
   // need to fetch  user's questions 
   useEffect(()=> { 
     if (logedIn) { 
       getUserInfo(activeUserId) 
       getAllQuestion(activeUserId,setQuestions,setUserQuestionsErr) 
-      console.log(newQuestions)
     }
     else 
         window.location.replace("/login");
   }, [activeUserId])
   
   return <div className='homepage-container'>
-    
+      {
+        !activeUser.verified  && activeUser.verified !== undefined ?<p className='urgent' >confirm your account. Please check your email. 
+          <span onClick={resendVerificationEmail}>resend email </span> 
+        </p> : null   
+      }
       <div className = 'error hidden_err' >somthing went wrong. can't delete question</div>
       {activeUser &&!userError ? 
         <div>
@@ -100,7 +114,6 @@ const HomePage = () => {
         </div>
         :<div className='error'>something went wrong. try again </div>
       }
-      
       {logedIn ?
         !userQuestionsErr ?
         <div className='questions_wrapper'> 

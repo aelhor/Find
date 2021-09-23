@@ -10,6 +10,11 @@ body{
   background-color: #000;
 }
 /* common */
+.urgent { 
+  /* background: #4c0202; */
+  color: #ff0000;
+  padding: .3rem;
+}
 .gossip{ 
   color: #FFF;
   float: left;
@@ -177,9 +182,6 @@ nav{
     border: 1px solid #ccc;  
   }
 }
-
-
-
 
 .logout-btn{
   background: none;
@@ -376,10 +378,27 @@ label {
 .fb_btn {
   background: #3B5998;
   color: #fff;
+  margin: .5rem;
 }
 .fb_btn:hover {
   color: #fff;
   opacity: 0.8;
 }
+.signup_error {
+  color: #fff;
+  background: #8a030382;
+}
+.register_btn { 
+  width:12rem;
+  margin: .5rem;
+}
 
-
+a { 
+  text-decoration: none;
+  color: #3F51B5;
+}
+span { 
+  color: #3F51B5;
+  cursor: pointer;
+  text-decoration: underline;
+}
