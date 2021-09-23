@@ -1,3 +1,7 @@
+Find  : 
+a question & answer web app that allows it's user to find new things about each other. you don't have to sign up to ask our users but you need to subscribe to recieve questions. 
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
